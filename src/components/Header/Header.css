@@ -1,0 +1,69 @@
+.header {
+  display: flex;
+  height: 74px;
+  align-items: center;
+  justify-content: space-between;
+}
+.header__logo {
+  width: 38px;
+  height: 38px;
+  margin-left: 70px;
+}
+.header__button-signin {
+  padding: 0;
+  border-style: none;
+  width: 76px;
+  height: 32px;
+
+  border-radius: 3px;
+  background: #3ddc84;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+}
+.header__button-signin_link {
+  text-decoration: none;
+  color: #000;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  flex-grow: 1;
+  padding: 8px;
+}
+
+.header__button-signup {
+  background-color: transparent;
+  border-style: none;
+  padding: 0;
+  color: #fff;
+  text-align: right;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px; /* 133.333% */
+  cursor: pointer;
+  text-decoration: none;
+}
+.header__nav {
+  margin-right: 70px;
+  gap: 30px;
+  display: flex;
+}
+
+.header__button-logo {
+  background-color: transparent;
+  width: 38px;
+  height: 38px;
+  margin-left: 70px;
+  border-style: none;
+  background-image: url('../../images/logo/logo.svg');
+  background-repeat: no-repeat;
+  background-position: top;
+  cursor: pointer;
+  display: flex;
+}
+.header__button-logo_link {
+  width: 100%;
+  height: 100%;
+}
