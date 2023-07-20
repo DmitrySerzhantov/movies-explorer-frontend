@@ -1,0 +1,51 @@
+.about-me {
+  padding-top: 110px;
+}
+
+.about-me__content {
+  margin-top: 66px;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: 58px 28px auto 17px;
+  grid-template-areas: 'name avatar' 'about avatar' 'text avatar' 'link avatar';
+  text-align: left;
+  column-gap: 24%;
+}
+.about-me__name {
+  margin-top: 0;
+  margin-bottom: 0;
+  grid-area: name;
+  font-size: 50px;
+  font-weight: 400;
+  line-height: 58px;
+  letter-spacing: -2px;
+}
+.about-me__about {
+  grid-area: about;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 20px;
+  margin-top: 18px;
+  margin-bottom: 0;
+}
+.about-me__text {
+  margin-top: 35px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+.about-me__link {
+  grid-area: link;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: normal;
+  text-decoration: none;
+  cursor: pointer;
+}
+.about-me__avatar {
+  grid-area: avatar;
+  margin-left: 4px;
+}

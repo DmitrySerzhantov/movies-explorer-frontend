@@ -4,6 +4,7 @@
   margin: 0 auto;
   background: #202020;
   box-sizing: border-box;
+  color: #fff;
 }
 
 .App-logo {
@@ -32,11 +33,7 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.container {
+  max-width: 89%;
+  margin: 0 auto;
 }
