@@ -21,7 +21,7 @@ function Header() {
             onClick={() => {}}
           >
             <Routes>
-              {['/movies', '/saved-movies'].map((path, i) => (
+              {['/movies', '/saved-movies', 'profile'].map((path, i) => (
                 <Route
                   path={path}
                   element={
