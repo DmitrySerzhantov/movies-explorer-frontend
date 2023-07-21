@@ -11,8 +11,54 @@ function Header() {
           />
         </Routes>
       </button>
-
+      <nav>
+        <button
+          id='header__button-movies'
+          className='header__button-movies'
+          onClick={() => {}}
+        >
+          <Routes>
+            <Route
+              path='/movies'
+              element={
+                <>
+                  <Link className='header__button-movies-link' to='/movies'>
+                    Фильмы
+                  </Link>
+                  <Link
+                    className='header__button-saved-movies'
+                    to='/saved-movies'
+                  >
+                    Сохранённые фильмы
+                  </Link>
+                </>
+              }
+            />
+          </Routes>
+        </button>
+      </nav>
       <nav className='header__nav'>
+        <button
+          id='header__button-account'
+          className='header__button-account'
+          onClick={() => {}}
+        >
+          <Routes>
+            <Route
+              path='/movies'
+              element={
+                <>
+                  <Link
+                    className='header__button-account_link'
+                    to='/saved-movies'
+                  >
+                    Аккаунт
+                  </Link>
+                </>
+              }
+            />
+          </Routes>
+        </button>
         <button
           id='header__button-signup'
           className='header__button-signup'
@@ -22,19 +68,17 @@ function Header() {
             <Route
               path='/'
               element={
-                <Link className='header__button-signup' to='/sign-up'>
+                <Link className='header__button-signup-link' to='/sign-up'>
                   Регистрация
                 </Link>
               }
             />
           </Routes>
         </button>
-        <button
+        <div
           id='header__button-signin'
-          className='header__button-signin'
-          onClick={() => {
-            console.log('ssss');
-          }}
+          className='header__button-signin '
+          onClick={() => {}}
         >
           <Routes>
             <Route
@@ -46,7 +90,7 @@ function Header() {
               }
             />
           </Routes>
-        </button>
+        </div>
       </nav>
     </header>
   );

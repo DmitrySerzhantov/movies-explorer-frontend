@@ -1,0 +1,23 @@
+.filter {
+  display: flex;
+  justify-content: center;
+  margin-top: 45px;
+}
+.filter__checkbox {
+  display: none;
+}
+.filter__label {
+  font-size: 14px;
+  display: contents;
+  cursor: pointer;
+}
+.filter__label::before {
+  display: inline-block;
+  content: url(../../images/logo/chekbox-off.svg);
+  margin-right: 13px;
+}
+
+.filter__checkbox:checked + .filter__label::before {
+  display: inline-block;
+  content: url(../../images/logo/chekbox-on.svg);
+}

@@ -1,0 +1,50 @@
+.search {
+  margin-top: 70px;
+}
+.search__form {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  justify-content: space-between;
+  position: relative;
+}
+.search__iсon-find {
+  margin-left: 5px;
+}
+.search__input {
+  position: absolute;
+  background-color: transparent;
+  border-style: none;
+  border-bottom: 1px solid #424242;
+  height: 34px;
+  width: 100%;
+  padding-bottom: 15px;
+  z-index: 0;
+  color: #8b8b8b;
+  text-align: center;
+  font-size: 28px;
+}
+.search__input:focus {
+  outline: none;
+}
+.search__input::placeholder {
+  color: #8b8b8b;
+  text-align: center;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-size: 28px;
+  font-weight: 500;
+}
+.search__find-button {
+  padding: 0;
+  background-color: transparent;
+  background-image: url('../../images/logo/find.svg');
+  width: 80px;
+  height: 34px;
+  border-style: none;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.search__checkbox {
+}
+.search__caption-checkbox {
+}

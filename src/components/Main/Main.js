@@ -3,7 +3,6 @@ import AboutProject from '../AboutProject/AboutProject';
 import Techs from '../Techs/Techs';
 import AboutMe from '../AboutMe/AboutMe';
 import Portfolio from '../Portfolio/Portfolio';
-import Footer from '../Footer/Footer';
 function Main() {
   return (
     <main className='content'>
@@ -12,7 +11,6 @@ function Main() {
       <Techs></Techs>
       <AboutMe></AboutMe>
       <Portfolio></Portfolio>
-      <Footer></Footer>
     </main>
   );
 }

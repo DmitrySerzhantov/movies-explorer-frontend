@@ -6,21 +6,90 @@
   max-width: 89%;
   margin: 0 auto;
 }
-.header__logo {
+
+.header__button-logo {
+  background-color: transparent;
   width: 38px;
   height: 38px;
-}
-.header__button-signin {
-  padding: 0;
   border-style: none;
+  background-image: url('../../images/logo/logo.svg');
+  cursor: pointer;
+}
+
+.header__button-logo_link {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.header__nav {
+  display: flex;
+  column-gap: 30px;
+}
+
+.header__button-movies {
+  padding: 0;
+  background-color: transparent;
+  border-style: none;
+}
+
+.header__button-movies-link {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  margin-left: 60px;
+}
+
+.header__button-saved-movies {
+  color: #fff;
+  font-size: 13px;
+  text-decoration: none;
+  margin-left: 15px;
+}
+
+.header__button-account {
+  padding: 0;
+  background-color: transparent;
+  border-style: none;
+}
+
+.header__button-account_link {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  display: inline-flex;
+  text-decoration: none;
+  gap: 13px;
+  align-items: center;
+}
+
+.header__button-account_link::after {
+  content: url('../../images/logo/icon-main.svg');
+  padding: 9px;
+  border-radius: 6px;
+  background: #313131;
+}
+
+.header__button-signup {
+  background-color: transparent;
+  border-style: none;
+  display: none;
+}
+.header__button-signup-link {
+  color: #fff;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.header__button-signin {
   width: 76px;
-  height: 32px;
   border-radius: 3px;
   background: #3ddc84;
   display: flex;
-  cursor: pointer;
-  align-items: center;
+  display: none;
 }
+
 .header__button-signin_link {
   text-decoration: none;
   color: #000;
@@ -29,39 +98,4 @@
   line-height: 16px;
   flex-grow: 1;
   padding: 8px;
-}
-
-.header__button-signup {
-  background-color: transparent;
-  border-style: none;
-  padding: 0;
-  color: #fff;
-  text-align: right;
-  font-family: Inter;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 16px; /* 133.333% */
-  cursor: pointer;
-  text-decoration: none;
-}
-.header__nav {
-  gap: 30px;
-  display: flex;
-}
-
-.header__button-logo {
-  background-color: transparent;
-  width: 38px;
-  height: 38px;
-  border-style: none;
-  background-image: url('../../images/logo/logo.svg');
-  background-repeat: no-repeat;
-  background-position: top;
-  cursor: pointer;
-  display: flex;
-}
-.header__button-logo_link {
-  width: 100%;
-  height: 100%;
 }
