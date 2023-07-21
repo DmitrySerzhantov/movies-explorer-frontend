@@ -1,21 +1,17 @@
 import './App.css';
 import {Route, Routes} from 'react-router-dom';
 import Main from '../Main/Main';
-import Header from '../Header/Header';
 import Movies from '../Movies/Movies';
-import Footer from '../Footer/Footer';
+import SavedMovies from '../SavedMovies/SavedMovies';
+import Register from '../Register/Register';
 
 function App() {
   return (
-    <div className='App'>
-      <Header></Header>
+    <div className='App '>
       <Routes>
         <Route path='/' element={<Main />} />
         <Route path='/movies' element={<Movies />} />
-        <Route
-          path='/saved-movies'
-          //   element={}
-        />
+        <Route path='/saved-movies' element={<SavedMovies />} />
         <Route
           path='/profile'
           //   element={}
@@ -24,12 +20,8 @@ function App() {
           path='/signin'
           //  element={}
         />
-        <Route
-          path='/signup'
-          // element={}
-        />
+        <Route path='/signup' element={<Register />} />
       </Routes>
-      <Footer></Footer>
     </div>
   );
 }
