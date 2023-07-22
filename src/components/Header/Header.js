@@ -1,19 +1,19 @@
-import {Route, Routes, Link} from 'react-router-dom';
+import {Route, Routes, Link, useNavigate, useLocation} from 'react-router-dom';
 
 function Header() {
+  let location = useLocation();
+  console.log(location.pathname);
+  const navigate = useNavigate();
+
+  const path = ['/movies', '/saved-movies', '/profile'].find(
+    (i) => i === location.pathname
+  );
+  console.log(path);
   return (
     <div className='container'>
       <header className='header'>
-        <button className='header__button-logo'>
-          <Routes>
-            <Route
-              path='*'
-              element={
-                <Link className='header__button-logo_link' to='/'></Link>
-              }
-            />
-          </Routes>
-        </button>
+        <button className='header__button-logo' onClick={() => navigate('/')} />
+
         <nav>
           <button
             id='header__button-movies'
@@ -21,25 +21,22 @@ function Header() {
             onClick={() => {}}
           >
             <Routes>
-              {['/movies', '/saved-movies', 'profile'].map((path, i) => (
-                <Route
-                  path={path}
-                  element={
-                    <>
-                      <Link className='header__button-movies-link' to='/movies'>
-                        Фильмы
-                      </Link>
-                      <Link
-                        className='header__button-saved-movies'
-                        to='/saved-movies'
-                      >
-                        Сохранённые фильмы
-                      </Link>
-                    </>
-                  }
-                  key={i}
-                />
-              ))}
+              <Route
+                path={path}
+                element={
+                  <>
+                    <Link className='header__button-movies-link' to='/movies'>
+                      Фильмы
+                    </Link>
+                    <Link
+                      className='header__button-saved-movies'
+                      to='/saved-movies'
+                    >
+                      Сохранённые фильмы
+                    </Link>
+                  </>
+                }
+              />
             </Routes>
           </button>
         </nav>
@@ -50,56 +47,31 @@ function Header() {
             onClick={() => {}}
           >
             <Routes>
-              {['/movies', '/saved-movies'].map((path, i) => (
-                <Route
-                  path={path}
-                  element={
-                    <>
-                      <Link
-                        className='header__button-account_link'
-                        to='/saved-movies'
-                      >
-                        Аккаунт
-                      </Link>
-                    </>
-                  }
-                  key={i}
-                />
-              ))}
-            </Routes>
-          </button>
-          <button
-            id='header__button-signup'
-            className='header__button-signup'
-            onClick={() => {}}
-          >
-            <Routes>
+              <Route
+                path={path}
+                element={
+                  <>
+                    <Link className='header__button-account_link' to='/profile'>
+                      Аккаунт
+                    </Link>
+                  </>
+                }
+              />
               <Route
                 path='/'
                 element={
-                  <Link className='header__button-signup-link' to='/sign-up'>
-                    Регистрация
-                  </Link>
+                  <>
+                    <Link className='header__button-signup' to='/signup'>
+                      Регистрация
+                    </Link>
+                    <Link className='header__button-signin' to='/signin'>
+                      Войти
+                    </Link>
+                  </>
                 }
               />
             </Routes>
           </button>
-          <div
-            id='header__button-signin'
-            className='header__button-signin '
-            onClick={() => {}}
-          >
-            <Routes>
-              <Route
-                path='/'
-                element={
-                  <Link className='header__button-signin_link' to='/signin'>
-                    Войти
-                  </Link>
-                }
-              />
-            </Routes>
-          </div>
         </nav>
       </header>
     </div>

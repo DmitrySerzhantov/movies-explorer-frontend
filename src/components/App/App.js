@@ -7,24 +7,20 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
 import NotFound from '../NotFound/NotFound';
+import Header from '../Header/Header';
 
 function App() {
   return (
     <div className='App '>
+      <Header />
       <Routes>
-      <Route path='*' element={<NotFound />} />
-        <Route path='/' element={<Main />} />
-        <Route path='/movies' element={<Movies />} />
-        <Route path='/saved-movies' element={<SavedMovies />} />
-        <Route
-          path='/profile'
-            element={<Profile/>}
-        />
-        <Route
-          path='/signin'
-           element={<Login/>}
-        />
+        <Route path='/*' element={<Main />} />
+        <Route path='/movies/*' element={<Movies />} />
+        <Route path='/saved-movies/*' element={<SavedMovies />} />
+        <Route path='/profile' element={<Profile />} />
+        <Route path='/signin' element={<Login />} />
         <Route path='/signup' element={<Register />} />
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </div>
   );
