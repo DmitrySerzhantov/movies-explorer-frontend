@@ -28,7 +28,7 @@ function Login() {
         <button className='register__button'>Войти</button>
         <p className='register__footer'>
           Ещё не зарегистрированы?{' '}
-          <Link className='register__footer-button' to='/sign-in'>
+          <Link className='register__footer-button' to='/signup'>
             Регистрация
           </Link>
         </p>

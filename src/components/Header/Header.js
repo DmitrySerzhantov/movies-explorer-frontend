@@ -12,7 +12,17 @@ function Header() {
   return (
     <div className='container'>
       <header className='header'>
-        <button className='header__button-logo' onClick={() => navigate('/')} />
+        <Routes>
+          <Route
+            path={path || '/'}
+            element={
+              <button
+                className='header__button-logo'
+                onClick={() => navigate('/')}
+              />
+            }
+          />
+        </Routes>
 
         <nav>
           <button
