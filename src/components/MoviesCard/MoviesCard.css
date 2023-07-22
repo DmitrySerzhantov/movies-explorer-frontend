@@ -36,6 +36,9 @@
   background-color: transparent;
   cursor: pointer;
 }
+.card__button-save:hover {
+  opacity: 0.8;
+}
 .card__poster {
   width: 100%;
 }

@@ -13,6 +13,9 @@
   background-image: url('../../images/logo/logo.svg');
   cursor: pointer;
 }
+.header__button-logo:hover {
+  opacity: 0.8;
+}
 
 .header__nav {
   display: flex;
@@ -23,27 +26,31 @@
   padding: 0;
   background-color: transparent;
   border-style: none;
+  margin-left: 45px;
 }
 
-.header__button-movies-link {
-  color: #fff;
-  font-size: 13px;
-  font-weight: 500;
-  text-decoration: none;
-  margin-left: 60px;
-}
-
-.header__button-saved-movies {
+.header__button {
   color: #fff;
   font-size: 13px;
   text-decoration: none;
   margin-left: 15px;
+}
+.header__button:hover {
+  opacity: 0.7;
+}
+
+.header__button_active {
+  font-weight: 500;
 }
 
 .header__button-account {
   padding: 0;
   background-color: transparent;
   border-style: none;
+}
+
+.header__button-account_link:hover {
+  opacity: 0.8;
 }
 
 .header__button-account_link {
@@ -72,6 +79,9 @@
   display: inline;
   margin-right: 30px;
 }
+.header__button-signup:hover {
+  opacity: 0.8;
+}
 
 .header__button-signin {
   height: 32px;
@@ -86,4 +96,7 @@
   font-size: 12px;
   font-weight: 500;
   line-height: 16px;
+}
+.header__button-signin:hover {
+  opacity: 0.8;
 }

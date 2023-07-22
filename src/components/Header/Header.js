@@ -35,11 +35,22 @@ function Header() {
                 path={path}
                 element={
                   <>
-                    <Link className='header__button-movies-link' to='/movies'>
+                    <Link
+                      className={
+                        location.pathname === '/movies'
+                          ? 'header__button header__button_active'
+                          : 'header__button'
+                      }
+                      to='/movies'
+                    >
                       Фильмы
                     </Link>
                     <Link
-                      className='header__button-saved-movies'
+                      className={
+                        location.pathname === '/saved-movies'
+                          ? 'header__button header__button_active'
+                          : 'header__button'
+                      }
                       to='/saved-movies'
                     >
                       Сохранённые фильмы

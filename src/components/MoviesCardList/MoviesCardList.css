@@ -23,3 +23,7 @@
   line-height: normal;
   cursor: pointer;
 }
+
+.movies-card__button:hover {
+  opacity: 0.8;
+}

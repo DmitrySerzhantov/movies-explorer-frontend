@@ -43,7 +43,10 @@
   height: 36px;
   border-radius: 3px;
   border: 1px solid #fff;
-  opacity: 0.6000000238418579;
+  opacity: 0.6;
   background-color: transparent;
   margin-top: 84px;
+}
+.promo__button:hover{
+  opacity: 0.8;
 }

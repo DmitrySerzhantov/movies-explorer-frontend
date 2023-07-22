@@ -26,6 +26,7 @@
   justify-content: center;
   margin-bottom: 0;
 }
+
 .techs__item {
   display: flex;
   border-radius: 10px;
@@ -44,4 +45,7 @@
   text-align: center;
   letter-spacing: -0.56px;
   text-decoration: none;
+}
+.techs__link:hover {
+  opacity: 0.8;
 }

@@ -53,23 +53,22 @@
 .about-project__nav-item {
   margin: 0;
 }
-.about-project__nav-button_green {
+.about-project__nav-button {
   padding: 0;
   border-style: none;
-  background: #3ddc84;
   height: 36px;
   width: 100%;
   cursor: pointer;
 }
+.about-project__nav-button:hover {
+  opacity: 0.8;
+}
+.about-project__nav-button_green {
+  background: #3ddc84;
+}
 .about-project__nav-button_black {
-  padding: 0;
-  border-style: none;
   background: #303030;
-  height: 36px;
   color: #fff;
-  text-align: center;
-  width: 100%;
-  cursor: pointer;
 }
 .about-project__nav-caption {
   color: #8b8b8b;

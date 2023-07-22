@@ -25,7 +25,7 @@ function AboutProject() {
         </ul>
         <div className='about-project__nav'>
           <figure className='about-project__nav-item'>
-            <button className='about-project__nav-button_green'>
+            <button className='about-project__nav-button about-project__nav-button_green'>
               1 неделя
             </button>
             <figcaption className='about-project__nav-caption'>
@@ -33,7 +33,7 @@ function AboutProject() {
             </figcaption>
           </figure>
           <figure className='about-project__nav-item'>
-            <button className='about-project__nav-button_black'>
+            <button className='about-project__nav-button about-project__nav-button_black'>
               4 недели
             </button>
             <figcaption className='about-project__nav-caption'>

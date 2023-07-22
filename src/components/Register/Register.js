@@ -1,11 +1,10 @@
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
 function Register() {
+  const navigate = useNavigate();
   return (
     <section className='register'>
-      <button className='register__button-home'>
-        <Link className='register__button-home-link' to='/'></Link>
-      </button>
+      <button className='register__button-home' onClick={() => navigate('/')} />
       <h1 className='register__title'>Добро пожаловать!</h1>
 
       <form className='register__form'>
@@ -33,7 +32,12 @@ function Register() {
           type='password'
           autoComplete='new-password'
         />
-        <button className='register__button'>Зарегистрироваться</button>
+        <button
+          className='register__button'
+          onClick={() => navigate('/signin')}
+        >
+          Зарегистрироваться
+        </button>
         <p className='register__footer'>
           Уже зарегистрированы?{' '}
           <Link className='register__footer-button' to='/signin'>

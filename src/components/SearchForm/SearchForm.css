@@ -43,5 +43,8 @@
   z-index: 2;
   cursor: pointer;
 }
+.search__find-button:hover{
+  opacity: 0.8;
+}
 
 

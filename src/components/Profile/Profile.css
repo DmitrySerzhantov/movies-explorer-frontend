@@ -76,6 +76,9 @@
   border-style: none;
   cursor: pointer;
 }
+.profile__button-edit:hover {
+  opacity: 0.8;
+}
 
 .profile__button-logout {
   margin-top: 16px;
@@ -90,4 +93,7 @@
   background-color: transparent;
   border-style: none;
   cursor: pointer;
+}
+.profile__button-logout:hover {
+  opacity: 0.8;
 }

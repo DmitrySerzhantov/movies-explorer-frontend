@@ -45,6 +45,9 @@
   text-decoration: none;
   cursor: pointer;
 }
+.about-me__link:hover {
+  opacity: 0.7;
+}
 .about-me__avatar {
   grid-area: avatar;
   margin-left: 4px;
