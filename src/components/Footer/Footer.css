@@ -2,6 +2,10 @@
   padding-bottom: 20px;
   margin-top: 59px;
 }
+.footer__container {
+  max-width: 89%;
+  margin: 0 auto;
+}
 .footer__title {
   color: #8b8b8b;
   text-align: center;
@@ -45,4 +49,38 @@
 }
 .footer__link:hover {
   opacity: 0.7;
+}
+
+@media (max-width: 768px) {
+  .footer__container {
+    max-width: 92%;
+  }
+}
+@media (min-width: 320px) {
+  .footer {
+    margin-top: 40px;
+  }
+  .footer__title {
+    font-size: 12px;
+  }
+  .footer__container {
+    max-width: 92%;
+  }
+  .footer__nav {
+    flex-direction: column-reverse;
+    align-items: center;
+    margin-top: 27px;
+  }
+  .footer__list {
+    flex-direction: column;
+    gap: 9px;
+  }
+  .footer__year {
+    margin-top: 29px;
+    color: #8b8b8b;
+    font-size: 12px;
+  }
+  .footer__link {
+    font-size: 12px;
+  }
 }

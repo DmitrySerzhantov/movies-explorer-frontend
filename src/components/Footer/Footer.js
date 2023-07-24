@@ -1,7 +1,7 @@
 function Footer() {
   return (
     <footer className='footer'>
-      <div className='container'>
+      <div className='footer__container'>
         <h3 className='footer__title'>
           Учебный проект Яндекс.Практикум х BeatFilm.
         </h3>

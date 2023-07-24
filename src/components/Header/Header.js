@@ -2,16 +2,13 @@ import {Route, Routes, Link, useNavigate, useLocation} from 'react-router-dom';
 
 function Header() {
   let location = useLocation();
-  console.log(location.pathname);
   const navigate = useNavigate();
-
   const path = ['/movies', '/saved-movies', '/profile'].find(
     (i) => i === location.pathname
   );
-  console.log(path);
   return (
-    <div className='container'>
-      <header className='header'>
+    <div className='header'>
+      <header className='header__container'>
         <Routes>
           <Route
             path={path || '/'}

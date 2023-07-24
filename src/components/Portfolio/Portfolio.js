@@ -12,7 +12,7 @@ function Portfolio() {
               Статичный сайт
             </a>
             <a
-              className='portfolio__link-copy'
+              className='portfolio__link-arrow'
               href='https://github.com/DmitrySerzhantov/how-to-learn'
             >
               ↗
@@ -26,7 +26,7 @@ function Portfolio() {
               Адаптивный сайт
             </a>
             <a
-              className='portfolio__link-copy'
+              className='portfolio__link-arrow'
               href='https://github.com/DmitrySerzhantov/russian-travel'
             >
               ↗
@@ -40,7 +40,7 @@ function Portfolio() {
               Одностраничное приложение
             </a>
             <a
-              className='portfolio__link-copy'
+              className='portfolio__link-arrow'
               href='https://github.com/DmitrySerzhantov/react-mesto-api-full-gha'
             >
               ↗

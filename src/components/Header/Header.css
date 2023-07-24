@@ -1,4 +1,9 @@
 .header {
+  max-width: 89%;
+  margin: 0 auto;
+}
+
+.header__container {
   display: flex;
   height: 74px;
   align-items: center;
@@ -19,7 +24,6 @@
 
 .header__nav {
   display: flex;
-  column-gap: 30px;
 }
 
 .header__button-movies {
@@ -99,4 +103,23 @@
 }
 .header__button-signin:hover {
   opacity: 0.8;
+}
+@media (max-width: 768px) {
+  .header {
+    max-width: 92.5%;
+  }
+}
+
+@media (max-width: 550px) {
+  .header__button-signup {
+    font-family: Inter;
+    font-size: 10px;
+    margin-right: 16px;
+    font-weight: 500;
+    line-height: 160%;
+  }
+  .header__button-signin {
+    width: 54px;
+    height: 26px;
+  }
 }

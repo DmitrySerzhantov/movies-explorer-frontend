@@ -49,3 +49,48 @@
 .techs__link:hover {
   opacity: 0.8;
 }
+@media (max-width: 768px) {
+  .techs {
+    padding-top: 92px;
+    padding-bottom: 89px;
+  }
+  .techs__subtitle {
+    margin-top: 80px;
+  }
+  .techs__text {
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: -0.48px;
+    margin-top: 20px;
+  }
+  .techs__list {
+    margin-top: 85px;
+  }
+  .techs__item {
+    width: 84px;
+    height: 57px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 550px) {
+  .techs {
+    padding-top: 49px;
+  }
+  .techs__subtitle {
+    font-size: 30px;
+    line-height: normal;
+    letter-spacing: -1.2px;
+    margin-top: 59px;
+  }
+  .techs__text {
+    font-size: 11px;
+    line-height: 145.455%; /* 145.455% */
+    letter-spacing: -0.44px;
+    margin-top: 25px;
+  }
+  .techs__list {
+    display: grid;
+    grid-template-columns: auto auto;
+    margin-top: 50px;
+  }
+}

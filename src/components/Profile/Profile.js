@@ -1,7 +1,11 @@
 import {useNavigate} from 'react-router-dom';
+import {useState, useEffect} from 'react';
 
 function Profile() {
   const navigate = useNavigate();
+  const [editProfile, setEditProfile] = useState(true);
+  console.log(editProfile);
+  useEffect(() => {}, [editProfile]);
   return (
     <section className='profile'>
       <h1 className='profile__title'>Привет, Виталий!</h1>
@@ -10,6 +14,7 @@ function Profile() {
         <div className='profile__name'>
           <span className='profile__span'>Имя</span>
           <input
+            disabled={editProfile}
             id='name'
             name='name'
             type='text'
@@ -21,6 +26,7 @@ function Profile() {
         <div className='profile__email'>
           <span className='profile__span'>E-mail</span>
           <input
+            disabled={editProfile}
             id='email'
             name='email'
             type='email'
@@ -29,13 +35,32 @@ function Profile() {
             placeholder='pochta@yandex.ru'
           />
         </div>
-
-        <button className='profile__button-edit'>Редактировать</button>
         <button
-          className='profile__button-logout'
+          type='button'
+          className={
+            editProfile ? 'profile__button-edit ' : ' profile__button_hide'
+          }
+          onClick={() => setEditProfile(false)}
+        >
+          Редактировать
+        </button>
+        <button
+          className={
+            editProfile ? 'profile__button-logout ' : 'profile__button_hide'
+          }
           onClick={() => navigate('/signin')}
         >
           Выйти из аккаунта
+        </button>
+        <button
+          type='submit'
+          className={
+            !editProfile
+              ? 'profile__button-save profile__button'
+              : 'profile__button-save profile__button_hide'
+          }
+        >
+          Сохранить
         </button>
       </form>
     </section>
