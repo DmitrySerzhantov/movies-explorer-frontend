@@ -21,3 +21,12 @@
   display: inline-block;
   content: url(../../images/logo/chekbox-on.svg);
 }
+@media (max-width: 550px) {
+  .filter {
+    margin-top: 52px;
+  }
+  .filter__label {
+    font-size: 11px;
+    line-height: 163.636%;
+  }
+}

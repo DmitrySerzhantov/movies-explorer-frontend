@@ -4,7 +4,6 @@ import {useState, useEffect} from 'react';
 function Profile() {
   const navigate = useNavigate();
   const [editProfile, setEditProfile] = useState(true);
-  console.log(editProfile);
   useEffect(() => {}, [editProfile]);
   return (
     <section className='profile'>

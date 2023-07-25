@@ -56,7 +56,7 @@
     max-width: 92%;
   }
 }
-@media (min-width: 320px) {
+@media (max-width: 550px) {
   .footer {
     margin-top: 40px;
   }

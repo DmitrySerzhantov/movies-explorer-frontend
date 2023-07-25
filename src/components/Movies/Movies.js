@@ -5,7 +5,7 @@ import Footer from '../Footer/Footer';
 function Movies() {
   return (
     <section className='movies'>
-      <div className='container'>
+      <div className='movies__container'>
         <SearchForm></SearchForm>
         <FilterCheckbox></FilterCheckbox>
         <MoviesCardList></MoviesCardList>

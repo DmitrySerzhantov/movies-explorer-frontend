@@ -42,3 +42,11 @@
 .card__poster {
   width: 100%;
 }
+@media (max-width: 550px) {
+  .card {
+    margin: 0 auto;
+  }
+  .card__poster {
+    max-width: 100%;
+  }
+}

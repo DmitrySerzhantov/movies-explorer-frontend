@@ -43,8 +43,27 @@
   z-index: 2;
   cursor: pointer;
 }
-.search__find-button:hover{
+.search__find-button:hover {
   opacity: 0.8;
 }
 
-
+@media (max-width: 768px) {
+  .search {
+    margin-top: 87px;
+  }
+}
+@media (max-width: 550px) {
+  .search__iсon-find {
+    display: none;
+  }
+  .search__form {
+    justify-content: end;
+  }
+  .search__input::placeholder {
+    font-size: 18px;
+    text-align: start;
+  }
+  .search__find-button {
+    margin-top: 5px;
+  }
+}
