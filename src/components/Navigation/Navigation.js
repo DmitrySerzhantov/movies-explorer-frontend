@@ -1,7 +1,9 @@
-import {useNavigate} from 'react-router-dom';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
 
 function Navigation({items, menuActive, setMenuActive}) {
   const navigate = useNavigate();
+  let location = useLocation();
+
   return (
     <div
       className={menuActive ? 'navigation active' : ' navigation'}
@@ -18,9 +20,16 @@ function Navigation({items, menuActive, setMenuActive}) {
         <ul className='navigation__list'>
           {items.map((item, i) => (
             <li className='navigation__item' key={i}>
-              <a className='navigation__link' href={item.href}>
+              <Link
+                className={
+                  item.id === location.pathname
+                    ? 'navigation__link active'
+                    : 'navigation__link'
+                }
+                to={item.href}
+              >
                 {item.value}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>

@@ -9,7 +9,7 @@
   background-color: rgba(32, 32, 32, 30%);
 }
 .navigation.active {
-  transform: translateX(0%);
+  transform: translateX(-4%);
 }
 .navigation__nav {
   transition: all 0.4s;
@@ -37,7 +37,7 @@
   background-color: transparent;
   border-style: none;
   cursor: pointer;
-  margin-top: 23px;
+  margin-top: 5px;
   padding: 0;
   z-index: 51;
   margin-right: 23px;
@@ -45,7 +45,7 @@
 .navigation__list {
   list-style: none;
   padding: 0;
-  margin-top: 130px;
+  margin-top: 115 px;
   margin-bottom: 0;
 }
 .navigation__item {
@@ -59,6 +59,10 @@
   font-weight: 500;
   line-height: normal;
   text-decoration: none;
+}
+.navigation__link.active {
+  border-bottom: 2px solid #fff;
+  padding-bottom: 5px;
 }
 .navigation__button-account {
   position: absolute;
@@ -87,14 +91,14 @@
     width: 100%;
   }
   .navigation__list {
-    margin-top: 123px;
+    margin-top: 102px;
   }
   .navigation.active {
     transform: translateX(-4%);
   }
   .navigation__button-close {
-    margin-top: 14px;
     margin-right: 13px;
+    margin-top: 0;
   }
   .navigation__item {
     margin-top: 24px;

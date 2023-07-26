@@ -2,8 +2,8 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  margin: 0 auto;
+  justify-content: flex-start;
+  margin: 73px auto 0;
   width: 32%;
 }
 
@@ -112,4 +112,31 @@
   font-weight: 500;
   line-height: normal;
   margin-top: 210px;
+}
+
+@media (max-width: 768px) {
+  .profile {
+    justify-content: center;
+    margin-top: 18px;
+    width: 53%;
+  }
+  .profile__form {
+    margin-top: 95px;
+  }
+  .profile__button-edit {
+    margin-top: 200px;
+  }
+}
+@media (max-width: 550px) {
+  .profile {
+    width: 82%;
+    justify-content: flex-start;
+    margin-top: 70px;
+  }
+  .profile__form {
+    margin-top: 83px;
+  }
+ .profile__button-edit {
+  margin-top: 365px;
+ }
 }

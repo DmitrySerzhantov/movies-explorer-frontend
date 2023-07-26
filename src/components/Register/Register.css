@@ -1,10 +1,9 @@
 .register {
   max-width: 31%;
-  margin: 0 auto;
+  margin: 52px auto 0;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
 }
 .register__button-home {
   background-image: url('../../images/logo/logo.svg');
@@ -63,9 +62,8 @@
   flex-shrink: 0;
   border-radius: 3px;
   background: #4285f4;
-  margin: 0 auto;
+  margin: 220px auto 0;
   border-style: none;
-  margin-top: 150px;
   color: #fff;
   font-size: 14px;
   font-weight: 500;
@@ -91,4 +89,41 @@
   text-align: center;
   font-size: 14px;
   line-height: normal;
+}
+@media (max-width: 915px) {
+  .register {
+    max-width: 37%;
+  }
+}
+
+@media (max-width: 768px) {
+  .register {
+    max-width: 51%;
+    margin-top: 215px;
+  }
+}
+
+@media (max-width: 550px) {
+  .register {
+    margin-top: 40px;
+    align-items: center;
+    max-width: 100%;
+  }
+  .register__title {
+    margin-top: 50px;
+  }
+  .register__form {
+    margin-top: 55px;
+    min-width: 260px;
+  }
+  .register__button {
+    margin-top: 310px;
+    font-size: 12px;
+  }
+  .register__footer {
+    font-size: 12px;
+  }
+  .register__footer-button {
+    font-size: 12px;
+  }
 }

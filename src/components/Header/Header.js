@@ -17,15 +17,15 @@ function Header() {
       setBurger(true);
       sethideButton('header__button_hide');
       return;
-    }
+    }  
   }, []);
   return (
     <div className='header'>
-      <Navigation
-        setMenuActive={setMenuActive}
-        menuActive={menuActive}
-        items={itemNavigation}
-      />
+        <Navigation
+          setMenuActive={setMenuActive}
+          menuActive={menuActive}
+          items={itemNavigation}
+        />
       <header className='header__container'>
         <Routes>
           <Route
@@ -42,7 +42,7 @@ function Header() {
           <Route
             path={path}
             element={
-              <>
+              <div className='header__button-movies'>
                 <Link
                   className={
                     location.pathname === '/movies'
@@ -63,7 +63,7 @@ function Header() {
                 >
                   Сохранённые фильмы
                 </Link>
-              </>
+              </div>
             }
           />
         </Routes>
