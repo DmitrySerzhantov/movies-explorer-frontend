@@ -11,21 +11,23 @@ function Header() {
   );
   const [burger, setBurger] = useState(false);
   const [hideButton, sethideButton] = useState(false);
-
+  const [hideHeader, sethideHeader] = useState(false);
   useEffect(() => {
+    sethideHeader((path || '/') === location.pathname);
+
     if (window.screen.availWidth <= 768) {
       setBurger(true);
       sethideButton('header__button_hide');
-      return;
-    }  
-  }, []);
+    }
+    console.log(location.pathname);
+  }, [location.pathname, path]);
   return (
-    <div className='header'>
-        <Navigation
-          setMenuActive={setMenuActive}
-          menuActive={menuActive}
-          items={itemNavigation}
-        />
+    <div className={hideHeader ? 'header' : 'header__button_hide'}>
+      <Navigation
+        setMenuActive={setMenuActive}
+        menuActive={menuActive}
+        items={itemNavigation}
+      />
       <header className='header__container'>
         <Routes>
           <Route

@@ -22,6 +22,7 @@ function Login() {
           type='password'
           autoComplete='new-password'
         />
+      </form>
         <button
           className='register__button'
           onClick={() => navigate('/movies')}
@@ -34,7 +35,6 @@ function Login() {
             Регистрация
           </Link>
         </p>
-      </form>
     </section>
   );
 }

@@ -5,5 +5,15 @@
   background: #202020;
   box-sizing: border-box;
   color: #fff;
-  width: 100vw;
+}
+
+.App__wrapper {
+  max-width: 1280px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.App__content {
+  flex-grow: 1;
 }

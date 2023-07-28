@@ -31,7 +31,6 @@
 
 .promo__button {
   display: flex;
-  align-self: center;
   justify-content: center;
   align-items: center;
   text-decoration: none;
@@ -43,8 +42,7 @@
   width: 129px;
   height: 36px;
   border-radius: 3px;
-  border: 1px solid #fff;
-  opacity: 0.6;
+  border: 1px solid rgba(255, 255, 255, 0.6);
   background-color: transparent;
   margin-top: 145px;
 }
@@ -56,12 +54,7 @@
   height: 100%;
   margin-top: 150px;
 }
-@media (max-width: 915px) {
-  .promo__title {
-    font-size: 40px;
-    max-width: 100%;
-  }
-}
+
 
 @media (max-width: 768px) {
   .promo {
@@ -79,6 +72,8 @@
     text-align: center;
   }
   .promo__title {
+    font-size: 40px;
+    max-width: 100%;
     line-height: 125%;
   }
   .promo__text {
@@ -87,8 +82,9 @@
     max-width: 260px;
   }
   .promo__button {
-    margin-top: 90px;
+    margin: 90px auto 0;
   }
+
 }
 
 @media (max-width: 550px) {

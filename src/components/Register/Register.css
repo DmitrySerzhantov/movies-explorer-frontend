@@ -1,19 +1,23 @@
 .register {
   max-width: 31%;
-  margin: 52px auto 0;
+  margin: 0 auto;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
 }
+
 .register__button-home {
   background-image: url('../../images/logo/logo.svg');
   background-color: transparent;
+  background-repeat: no-repeat;
   width: 38px;
   height: 38px;
   border-style: none;
   padding: 0;
   display: flex;
   cursor: pointer;
+  margin-top: 70px;
 }
 .register__button-home:hover {
   opacity: 0.8;
@@ -28,17 +32,18 @@
   line-height: normal;
 }
 
-.register__form {
-  display: flex;
-  flex-direction: column;
-  margin-top: 20px;
-}
 .register__form-subtitle {
   text-align: left;
   color: #8b8b8b;
   font-size: 10px;
   line-height: normal;
   margin-top: 23px;
+}
+.register__form {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 .register__input {
   padding: 0;
@@ -56,13 +61,14 @@
 }
 
 .register__button {
+  padding: 0;
   cursor: pointer;
   width: 100%;
   height: 45px;
   flex-shrink: 0;
   border-radius: 3px;
   background: #4285f4;
-  margin: 220px auto 0;
+  margin: 20px auto 0;
   border-style: none;
   color: #fff;
   font-size: 14px;
@@ -84,42 +90,44 @@
 
 .register__footer {
   margin-top: 15px;
-  margin-bottom: 0;
+  margin-bottom: 62px;
   color: #8b8b8b;
   text-align: center;
   font-size: 14px;
   line-height: normal;
 }
-@media (max-width: 915px) {
+@media (max-width: 1024px) {
   .register {
-    max-width: 37%;
+    max-width: 39%;
   }
 }
 
 @media (max-width: 768px) {
   .register {
-    max-width: 51%;
-    margin-top: 215px;
+    max-width: 51.5%;
+  }
+  .register__button-home {
+    margin-top: 27vh;
   }
 }
 
 @media (max-width: 550px) {
   .register {
-    margin-top: 40px;
-    align-items: center;
-    max-width: 100%;
+    max-width: 82%;
+  }
+  .register__button-home {
+    margin: 7vh auto 0;
   }
   .register__title {
-    margin-top: 50px;
+    margin-top: 6vh;
+    text-align: center;
   }
   .register__form {
-    margin-top: 55px;
-    min-width: 260px;
+    margin-top: 7vh;
   }
-  .register__button {
-    margin-top: 310px;
-    font-size: 12px;
-  }
+.register__button {
+  font-size: 12px;
+}
   .register__footer {
     font-size: 12px;
   }

@@ -1,14 +1,16 @@
 .header {
-  max-width: 89%;
+  min-width: 89%;
   margin: 0 auto;
   background-color: transparent;
-  padding-top: 18px;
+  flex-basis: auto;
+  z-index: 1;
+  flex-grow: 1;
 }
 .header__container {
   display: flex;
   align-items: center;
-  justify-content: space-between; 
-
+  justify-content: space-between;
+  padding-top: 18px;
 }
 .header__button-logo {
   background-color: transparent;
@@ -81,7 +83,6 @@
   color: #fff;
   font-size: 13px;
   text-decoration: none;
-  display: inline;
   margin-right: 30px;
   display: flex;
   margin-left: auto;
@@ -108,10 +109,13 @@
 }
 @media (max-width: 768px) {
   .header {
-    max-width: 92.5%;
+    min-width: 92.5%;
   }
 }
 @media (max-width: 550px) {
+  .header {
+    min-width: 91%;
+  }
   .header__button-signup {
     font-family: Inter;
     font-size: 10px;

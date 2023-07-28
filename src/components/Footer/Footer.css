@@ -1,6 +1,7 @@
 .footer {
   padding-bottom: 20px;
-  margin-top: 59px;
+  margin-top: 45px;
+  flex-shrink: 0;
 }
 .footer__container {
   max-width: 89%;
@@ -62,6 +63,7 @@
   }
   .footer__title {
     font-size: 12px;
+    margin-top: 0;
   }
   .footer__container {
     max-width: 92%;

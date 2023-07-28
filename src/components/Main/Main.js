@@ -4,17 +4,16 @@ import Techs from '../Techs/Techs';
 import AboutMe from '../AboutMe/AboutMe';
 import Portfolio from '../Portfolio/Portfolio';
 
-import Footer from '../Footer/Footer';
+
 function Main() {
   return (
-    <main className='content'>
+    <section className='content'>
       <Promo></Promo>
       <AboutProject></AboutProject>
       <Techs></Techs>
       <AboutMe></AboutMe>
       <Portfolio></Portfolio>
-      <Footer></Footer>
-    </main>
+    </section>
   );
 }
 export default Main;

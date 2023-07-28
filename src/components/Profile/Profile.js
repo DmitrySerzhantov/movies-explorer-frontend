@@ -34,6 +34,7 @@ function Profile() {
             placeholder='pochta@yandex.ru'
           />
         </div>
+      </form>
         <button
           type='button'
           className={
@@ -61,7 +62,6 @@ function Profile() {
         >
           Сохранить
         </button>
-      </form>
     </section>
   );
 }

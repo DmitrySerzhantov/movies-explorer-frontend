@@ -25,16 +25,24 @@
   font-size: 11px;
   margin-top: 8px;
 }
-.card__button-save {
+.card__button {
   margin-top: 22px;
   grid-area: button;
   padding: 0;
-  background-image: url('../../images/logo/save.svg');
   width: 30px;
   height: 30px;
   border-style: none;
   background-color: transparent;
   cursor: pointer;
+}
+.card__button_style_save {
+  background-image: url('../../images/logo/save.svg');
+}
+.card__button_style_delete {
+  background-image: url('../../images/logo/delete-card.svg');
+}
+.card__button_style_saved {
+  background-image: url('../../images/logo/save-green.svg');
 }
 .card__button-save:hover {
   opacity: 0.8;
