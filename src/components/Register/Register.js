@@ -13,7 +13,7 @@ function Register() {
           name='name'
           type='text'
           autoComplete='name'
-          className='register__input register__input_name'
+          className='register__input '
         />
         <span className='register__form-subtitle'>E-mail</span>
         <input
@@ -21,11 +21,11 @@ function Register() {
           name='email'
           type='email'
           autoComplete='email'
-          className='register__input register__input_email'
+          className='register__input '
         />
         <span className='register__form-subtitle'>Пароль</span>
         <input
-          className='register__input register__input_password'
+          className='register__input'
           id='password'
           name='password'
           type='password'

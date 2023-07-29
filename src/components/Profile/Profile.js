@@ -9,35 +9,36 @@ function Profile() {
     <section className='profile'>
       <form className='profile__form'>
         <h1 className='profile__title'>Привет, Виталий!</h1>
-        <div className='profile__name'>
-          <span className='profile__span'>Имя</span>
+
+        <label className='profile__name'>
           <input
             disabled={editProfile}
             id='name'
             name='name'
             type='text'
             autoComplete='name'
-            className='profile__input profile__input_name'
+            className='profile__input'
             placeholder='Виталий'
           />
-        </div>
-        <div className='profile__email'>
-          <span className='profile__span'>E-mail</span>
+          Имя
+        </label>
+        <label className='profile__email'>
+          E-mail
           <input
             disabled={editProfile}
             id='email'
             name='email'
             type='email'
             autoComplete='email'
-            className='profile__input register__input_email'
+            className='profile__input register__input_border-style_none'
             placeholder='pochta@yandex.ru'
           />
-        </div>
+        </label>
       </form>
       <button
         type='button'
         className={
-          editProfile ? 'profile__button-edit ' : ' profile__button_hide'
+          editProfile ? 'profile__button-edit' : 'profile__button-hide'
         }
         onClick={() => setEditProfile(false)}
       >
@@ -45,7 +46,7 @@ function Profile() {
       </button>
       <button
         className={
-          editProfile ? 'profile__button-logout ' : 'profile__button_hide'
+          editProfile ? 'profile__button-logout ' : 'profile__button-hide'
         }
         onClick={() => navigate('/signin')}
       >
@@ -54,9 +55,7 @@ function Profile() {
       <button
         type='submit'
         className={
-          !editProfile
-            ? 'profile__button-save profile__button'
-            : 'profile__button-save profile__button_hide'
+          !editProfile ? 'profile__button-save' : 'profile__button-hide'
         }
       >
         Сохранить

@@ -12,29 +12,26 @@ function Login() {
           name='email'
           type='email'
           autoComplete='email'
-          className='register__input register__input_email'
+          className='register__input'
         />
         <span className='register__form-subtitle'>Пароль</span>
         <input
-          className='register__input register__input_password'
+          className='register__input'
           id='password'
           name='password'
           type='password'
           autoComplete='new-password'
         />
       </form>
-        <button
-          className='register__button'
-          onClick={() => navigate('/movies')}
-        >
-          Войти
-        </button>
-        <p className='register__footer'>
-          Ещё не зарегистрированы?{' '}
-          <Link className='register__footer-button' to='/signup'>
-            Регистрация
-          </Link>
-        </p>
+      <button className='register__button' onClick={() => navigate('/movies')}>
+        Войти
+      </button>
+      <p className='register__footer'>
+        Ещё не зарегистрированы?{' '}
+        <Link className='register__footer-button' to='/signup'>
+          Регистрация
+        </Link>
+      </p>
     </section>
   );
 }

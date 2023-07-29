@@ -30,6 +30,9 @@
   cursor: pointer;
   margin-top: 184px;
 }
+.not-found__button-back:hover{
+  opacity: 0.69;
+}
 @media (max-width: 550px) {
   .not-found__status {
     font-size: 80px;

@@ -1,7 +1,7 @@
 import {Route, Routes, Link, useNavigate, useLocation} from 'react-router-dom';
 import {useEffect, useState} from 'react';
 import Navigation from '../Navigation/Navigation';
-import itemNavigation from '../../utils/Constans';
+import {itemNavigation} from '../../utils/constans';
 function Header() {
   const [menuActive, setMenuActive] = useState(false);
   let location = useLocation();
@@ -17,17 +17,17 @@ function Header() {
 
     if (window.screen.availWidth <= 768) {
       setBurger(true);
-      sethideButton('header__button_hide');
+      sethideButton('header-button-hide');
     }
   }, [location.pathname, path]);
   return (
-    <div className={hideHeader ? 'header' : 'header__button_hide'}>
+    <header className={hideHeader ? 'header' : 'header-button-hide'}>
       <Navigation
         setMenuActive={setMenuActive}
         menuActive={menuActive}
         items={itemNavigation}
       />
-      <header className='header__container'>
+      <nav className='header__container'>
         <Routes>
           <Route
             path={path || '/'}
@@ -76,8 +76,8 @@ function Header() {
                 <Link
                   className={
                     hideButton
-                      ? `header__button-account_link ${hideButton}`
-                      : `header__button-account_link  ${hideButton}`
+                      ? `header__button-account-link ${hideButton}`
+                      : `header__button-account-link  ${hideButton}`
                   }
                   to='/profile'
                 >
@@ -112,14 +112,14 @@ function Header() {
                 className={
                   burger
                     ? 'header__button-burger'
-                    : `header__button-burger header__button_hide`
+                    : `header__button-burger header-button-hide`
                 }
               />
             }
           />
         </Routes>
-      </header>
-    </div>
+      </nav>
+    </header>
   );
 }
 export default Header;

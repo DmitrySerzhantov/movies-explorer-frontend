@@ -17,42 +17,52 @@
 }
 
 .profile__form {
+  font-family: Inter;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: -9vh;
+  margin-top: -11vh;
+  font-size: 11px;
 }
 .profile__name {
   position: relative;
   display: flex;
   align-items: center;
   margin-top: 18vh;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #424242;
 }
 .profile__email {
   display: flex;
   position: relative;
   align-items: center;
-  margin-top: 25px;
+  margin-top: 15px;
 }
+
 .profile__input {
-  width: 100%;
-  padding: 0;
+  color: #fff;
+  font-family: Inter;
+  min-width: 100%;
+  padding-right: 5px;
   background-color: transparent;
   border-style: none;
-  border-bottom: 1px solid #424242;
-  color: #fff;
-  font-size: 11px;
-  line-height: normal;
-  padding-bottom: 15px;
   position: absolute;
   text-align: right;
 }
 .profile__input:focus {
   outline: none;
-  text-align: right;
+  margin-left: -5px;
+  border-radius: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  box-shadow: 3px 3px 11px #b1a5a5;
 }
-.register__input_email {
+.register__input_border-style_none {
   border-style: none;
 }
 .profile__input::placeholder {
@@ -60,12 +70,6 @@
   text-align: right;
   font-size: 11px;
   line-height: normal;
-}
-.profile__span {
-  font-size: 11px;
-  font-weight: 500;
-  line-height: normal;
-  margin-bottom: 10px;
 }
 
 .profile__button-edit {
@@ -100,7 +104,7 @@
 .profile__button-logout:hover {
   opacity: 0.8;
 }
-.profile__button_hide {
+.profile__button-hide {
   display: none;
 }
 .profile__button-save {
@@ -114,7 +118,7 @@
   cursor: pointer;
   font-weight: 500;
   line-height: normal;
-  margin-top: 210px;
+  margin-bottom: 70px;
 }
 
 @media (max-width: 1024px) {
@@ -122,14 +126,13 @@
     width: 45%;
   }
 }
-
 @media (max-width: 768px) {
   .profile {
     margin-top: -63px;
     width: 53%;
   }
   .profile__form {
-    margin-top: 13vh;
+    margin-top: 12vh;
   }
   .profile__name {
     margin-top: 12vh;

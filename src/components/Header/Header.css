@@ -59,10 +59,10 @@
   background-color: transparent;
   border-style: none;
 }
-.header__button-account_link:hover {
+.header__button-account-link:hover {
   opacity: 0.8;
 }
-.header__button-account_link {
+.header__button-account-link {
   color: #fff;
   font-size: 14px;
   font-weight: 500;
@@ -71,7 +71,7 @@
   gap: 13px;
   align-items: center;
 }
-.header__button-account_link::after {
+.header__button-account-link::after {
   content: url('../../images/logo/icon-main.svg');
   padding: 9px;
   border-radius: 6px;
@@ -133,6 +133,6 @@
     height: 39px;
   }
 }
-.header__button_hide {
+.header-button-hide {
   display: none;
 }

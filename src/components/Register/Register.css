@@ -54,10 +54,15 @@
   font-size: 14px;
   line-height: normal;
   margin-top: 5px;
-  padding-bottom: 10px;
+  padding-bottom: 5px;
+  padding-top: 5px;
 }
 .register__input:focus {
   outline: none;
+
+  border-radius: 5px;
+  padding-left: 10px;
+  box-shadow: 3px 3px 11px #b1a5a5;
 }
 
 .register__button {

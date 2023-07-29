@@ -1,5 +1,5 @@
 .movies-card {
-margin-bottom: 95px;
+  margin-bottom: 95px;
 }
 
 .movies-card__list {
@@ -8,7 +8,7 @@ margin-bottom: 95px;
   margin-top: 110px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
+  gap: 2%;
 }
 .movies-card__button {
   padding: 0;
@@ -36,7 +36,8 @@ margin-bottom: 95px;
 @media (max-width: 768px) {
   .movies-card__list {
     grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
+    column-gap: 4%;
+    row-gap: 1.8%;
     margin-top: 123px;
   }
   .movies-card {

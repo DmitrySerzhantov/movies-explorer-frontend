@@ -42,23 +42,17 @@
   line-height: 50px;
   letter-spacing: -1.2px;
   cursor: pointer;
+  min-width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 .portfolio__link:hover {
   opacity: 0.7;
 }
-.portfolio__link-arrow {
-  text-decoration: none;
-  color: #fff;
-  font-family: Inter;
-  font-size: 30px;
-  cursor: pointer;
-  font-weight: 400;
-  line-height: 60px;
-  letter-spacing: -1.2px;
+.portfolio__link::after {
+  content: '↗';
 }
-.portfolio__link-arrow:hover {
-  opacity: 0.7;
-}
+
 @media (max-width: 768px) {
   .portfolio {
     padding-bottom: 90px;
@@ -97,9 +91,5 @@
     line-height: 28px; /* 155.556% */
     letter-spacing: -0.72px;
     padding-right: 0;
-  }
-  .portfolio__link-arrow {
-    font-size: 18px;
-    line-height: 155.556%; /* 155.556% */
   }
 }
