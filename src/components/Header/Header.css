@@ -6,12 +6,14 @@
   z-index: 1;
   flex-grow: 1;
 }
+
 .header__container {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding-top: 18px;
 }
+
 .header__button-logo {
   background-color: transparent;
   width: 38px;
@@ -20,15 +22,19 @@
   background-image: url('../../images/logo/logo.svg');
   cursor: pointer;
 }
+
 .header__button-logo:hover {
   opacity: 0.8;
 }
+
 .header__button_show {
   display: inline-block;
 }
+
 .header__nav {
   display: flex;
 }
+
 .header__button-burger {
   background-color: transparent;
   background-image: url('../../images/logo/menu.svg');
@@ -38,30 +44,37 @@
   padding: 0;
   cursor: pointer;
 }
+
 .header__button-movies {
   margin-left: 65px;
   display: flex;
   gap: 15px;
 }
+
 .header__button {
   color: #fff;
   font-size: 13px;
   text-decoration: none;
 }
+
 .header__button:hover {
   opacity: 0.7;
 }
+
 .header__button_active {
   font-weight: 500;
 }
+
 .header__button-account {
   padding: 0;
   background-color: transparent;
   border-style: none;
 }
+
 .header__button-account-link:hover {
   opacity: 0.8;
 }
+
 .header__button-account-link {
   color: #fff;
   font-size: 14px;
@@ -71,12 +84,14 @@
   gap: 13px;
   align-items: center;
 }
+
 .header__button-account-link::after {
   content: url('../../images/logo/icon-main.svg');
   padding: 9px;
   border-radius: 6px;
   background: #313131;
 }
+
 .header__button-signup {
   background-color: transparent;
   border-style: none;
@@ -87,9 +102,11 @@
   display: flex;
   margin-left: auto;
 }
+
 .header__button-signup:hover {
   opacity: 0.8;
 }
+
 .header__button-signin {
   height: 32px;
   width: 76px;
@@ -104,20 +121,22 @@
   font-weight: 500;
   line-height: 16px;
 }
+
 .header__button-signin:hover {
   opacity: 0.8;
 }
+
 @media (max-width: 768px) {
   .header {
     min-width: 92.5%;
   }
 }
+
 @media (max-width: 550px) {
   .header {
     min-width: 91%;
   }
   .header__button-signup {
-    font-family: Inter;
     font-size: 10px;
     margin-right: 16px;
     font-weight: 500;
@@ -133,6 +152,7 @@
     height: 39px;
   }
 }
+
 .header-button-hide {
   display: none;
 }

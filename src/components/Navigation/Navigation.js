@@ -27,6 +27,7 @@ function Navigation({items, menuActive, setMenuActive}) {
                     : 'navigation__link'
                 }
                 to={item.href}
+                onClick={() => setMenuActive(false)}
               >
                 {item.value}
               </Link>
@@ -35,6 +36,7 @@ function Navigation({items, menuActive, setMenuActive}) {
         </ul>
         <button
           onClick={() => {
+            setMenuActive(false);
             navigate('/profile');
           }}
           className='navigation__button-account'
