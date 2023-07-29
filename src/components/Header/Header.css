@@ -127,6 +127,11 @@
     width: 54px;
     height: 26px;
   }
+  .header__button-burger {
+    background-size: contain;
+    width: 39px;
+    height: 39px;
+  }
 }
 .header__button_hide {
   display: none;

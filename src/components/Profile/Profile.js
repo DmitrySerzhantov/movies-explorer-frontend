@@ -7,9 +7,8 @@ function Profile() {
   useEffect(() => {}, [editProfile]);
   return (
     <section className='profile'>
-      <h1 className='profile__title'>Привет, Виталий!</h1>
-
       <form className='profile__form'>
+        <h1 className='profile__title'>Привет, Виталий!</h1>
         <div className='profile__name'>
           <span className='profile__span'>Имя</span>
           <input
@@ -35,33 +34,33 @@ function Profile() {
           />
         </div>
       </form>
-        <button
-          type='button'
-          className={
-            editProfile ? 'profile__button-edit ' : ' profile__button_hide'
-          }
-          onClick={() => setEditProfile(false)}
-        >
-          Редактировать
-        </button>
-        <button
-          className={
-            editProfile ? 'profile__button-logout ' : 'profile__button_hide'
-          }
-          onClick={() => navigate('/signin')}
-        >
-          Выйти из аккаунта
-        </button>
-        <button
-          type='submit'
-          className={
-            !editProfile
-              ? 'profile__button-save profile__button'
-              : 'profile__button-save profile__button_hide'
-          }
-        >
-          Сохранить
-        </button>
+      <button
+        type='button'
+        className={
+          editProfile ? 'profile__button-edit ' : ' profile__button_hide'
+        }
+        onClick={() => setEditProfile(false)}
+      >
+        Редактировать
+      </button>
+      <button
+        className={
+          editProfile ? 'profile__button-logout ' : 'profile__button_hide'
+        }
+        onClick={() => navigate('/signin')}
+      >
+        Выйти из аккаунта
+      </button>
+      <button
+        type='submit'
+        className={
+          !editProfile
+            ? 'profile__button-save profile__button'
+            : 'profile__button-save profile__button_hide'
+        }
+      >
+        Сохранить
+      </button>
     </section>
   );
 }

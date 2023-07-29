@@ -1,5 +1,5 @@
 .movies-card {
-  margin-bottom: 157px;
+margin-bottom: 95px;
 }
 
 .movies-card__list {
@@ -11,6 +11,7 @@
   gap: 22px;
 }
 .movies-card__button {
+  padding: 0;
   background-color: #202020;
   border: 1px solid #424242;
   width: 100%;
@@ -24,6 +25,9 @@
   cursor: pointer;
   max-width: 320px;
 }
+.movies-card__button_visible_none {
+  display: none;
+}
 
 .movies-card__button:hover {
   opacity: 0.8;
@@ -35,16 +39,20 @@
     gap: 30px;
     margin-top: 123px;
   }
+  .movies-card {
+    margin-bottom: 100px;
+  }
 }
 @media (max-width: 550px) {
   .movies-card__list {
     grid-template-columns: 1fr;
     gap: 10px;
     margin-top: 80px;
-    
+  }
+  .movies-card {
+    margin-bottom: 118px;
   }
   .movies-card__button {
     max-width: 80%;
   }
-  
 }

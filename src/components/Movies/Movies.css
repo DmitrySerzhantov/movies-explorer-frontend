@@ -1,5 +1,6 @@
 .movies {
   background-color: #202020;
+  min-height: 100vh;
 }
 .movies__container {
   max-width: 89%;

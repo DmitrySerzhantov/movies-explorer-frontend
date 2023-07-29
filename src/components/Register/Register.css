@@ -1,5 +1,5 @@
 .register {
-  max-width: 31%;
+  width: 31%;
   margin: 0 auto;
   min-height: 100vh;
   display: flex;
@@ -98,13 +98,13 @@
 }
 @media (max-width: 1024px) {
   .register {
-    max-width: 39%;
+    width: 39%;
   }
 }
 
 @media (max-width: 768px) {
   .register {
-    max-width: 51.5%;
+    width: 51.5%;
   }
   .register__button-home {
     margin-top: 27vh;
@@ -113,7 +113,7 @@
 
 @media (max-width: 550px) {
   .register {
-    max-width: 82%;
+    width: 82%;
   }
   .register__button-home {
     margin: 7vh auto 0;
@@ -125,9 +125,9 @@
   .register__form {
     margin-top: 7vh;
   }
-.register__button {
-  font-size: 12px;
-}
+  .register__button {
+    font-size: 12px;
+  }
   .register__footer {
     font-size: 12px;
   }

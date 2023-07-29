@@ -19,7 +19,6 @@ function Header() {
       setBurger(true);
       sethideButton('header__button_hide');
     }
-    console.log(location.pathname);
   }, [location.pathname, path]);
   return (
     <div className={hideHeader ? 'header' : 'header__button_hide'}>

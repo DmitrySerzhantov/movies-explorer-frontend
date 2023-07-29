@@ -37,15 +37,15 @@
   background-color: transparent;
   border-style: none;
   cursor: pointer;
-  margin-top: 5px;
+  margin-top: 22px;
   padding: 0;
-  z-index: 51;
-  margin-right: 23px;
+  z-index: 1;
+  margin-right: 22px;
 }
 .navigation__list {
   list-style: none;
   padding: 0;
-  margin-top: 115 px;
+  margin-top: 132px;
   margin-bottom: 0;
 }
 .navigation__item {
@@ -91,14 +91,14 @@
     width: 100%;
   }
   .navigation__list {
-    margin-top: 102px;
+    margin-top: 124px;
   }
   .navigation.active {
     transform: translateX(-4%);
   }
   .navigation__button-close {
-    margin-right: 13px;
-    margin-top: 0;
+    margin-right: 15px;
+    margin-top: 15px;
   }
   .navigation__item {
     margin-top: 24px;

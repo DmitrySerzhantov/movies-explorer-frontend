@@ -1,5 +1,5 @@
 .search {
-  margin-top: 70px;
+  margin-top: 90px;
 }
 .search__form {
   display: grid;
@@ -18,7 +18,7 @@
   height: 34px;
   width: 100%;
   padding-bottom: 15px;
-  z-index: 0;
+
   color: #8b8b8b;
   text-align: center;
   font-size: 28px;
@@ -34,13 +34,15 @@
   font-weight: 500;
 }
 .search__find-button {
+  position: absolute;
+  right: 0;
   padding: 0;
   background-color: transparent;
   background-image: url('../../images/logo/find.svg');
   width: 80px;
   height: 34px;
   border-style: none;
-  z-index: 2;
+
   cursor: pointer;
 }
 .search__find-button:hover {
@@ -49,10 +51,13 @@
 
 @media (max-width: 768px) {
   .search {
-    margin-top: 87px;
+    margin-top: 98px;
   }
 }
 @media (max-width: 550px) {
+  .search {
+    margin-top: 104px;
+  }
   .search__iсon-find {
     display: none;
   }

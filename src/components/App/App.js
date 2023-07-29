@@ -20,17 +20,15 @@ function App() {
     <div className='App '>
       <div className='App__wrapper'>
         <Header />
-        <main className='App__content'>
-          <Routes>
-            <Route path='/' element={<Main />} />
-            <Route path='/movies' element={<Movies />} />
-            <Route path='/saved-movies' element={<SavedMovies />} />
-            <Route path='/profile' element={<Profile />} />
-            <Route path='/signin' element={<Login />} />
-            <Route path='/signup' element={<Register />} />
-            <Route path='*' element={<NotFound />} />
-          </Routes>
-        </main>
+        <Routes>
+          <Route path='/' element={<Main />} />
+          <Route path='/movies' element={<Movies />} />
+          <Route path='/saved-movies' element={<SavedMovies />} />
+          <Route path='/profile' element={<Profile />} />
+          <Route path='/signin' element={<Login />} />
+          <Route path='/signup' element={<Register />} />
+          <Route path='*' element={<NotFound />} />
+        </Routes>
         <Routes>
           <Route path={path} element={<Footer />} />
         </Routes>
