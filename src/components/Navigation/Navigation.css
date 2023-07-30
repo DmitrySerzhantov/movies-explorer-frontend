@@ -1,82 +1,57 @@
 .navigation {
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  z-index: 50;
-  display: flex;
-  transform: translateX(100%);
-  transition: all 0.2s;
-  background-color: rgba(32, 32, 32, 30%);
+  flex-grow: 1;
 }
-.navigation.active {
-  transform: translateX(-4%);
-}
+
 .navigation__nav {
-  transition: all 0.4s;
-  background: #202020;
-  position: absolute;
-  width: 68%;
-  height: 100%;
-  top: 0;
-  right: 0;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
 }
 
 .navigation__button-close {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 30px;
-  height: 30px;
-  background-image: url('../../images/logo/close.svg');
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-color: transparent;
-  border-style: none;
-  cursor: pointer;
-  margin-top: 22px;
-  padding: 0;
-  z-index: 1;
-  margin-right: 22px;
+  display: none;
 }
+
 .navigation__list {
+  display: flex;
   list-style: none;
-  padding: 0;
-  margin-top: 132px;
-  margin-bottom: 0;
+  gap: 20px;
+  align-items: center;
+  margin: 0 auto;
+  padding: 0 0 0 65px;
 }
-.navigation__item {
-  margin-top: 28px;
+
+.navigation__item:first-child {
+  display: none;
 }
+
 .navigation__link {
   color: #fff;
-  text-align: center;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
+  font-size: 13px;
   text-decoration: none;
 }
-.navigation__link.active {
-  border-bottom: 2px solid #fff;
-  padding-bottom: 5px;
+
+.navigation__link:hover {
+  opacity: 0.7;
 }
+
+.navigation__link.active {
+  font-weight: 500;
+}
+
 .navigation__button-account {
-  position: absolute;
-  bottom: 90px;
-  left: auto;
   padding: 0;
+  background-color: transparent;
+  border-style: none;
   color: #fff;
   font-size: 14px;
   font-weight: 500;
-  border-style: none;
-  background-color: transparent;
-  display: flex;
-  gap: 14px;
+  display: inline-flex;
+  gap: 13px;
   align-items: center;
+  cursor: pointer;
+}
+
+.navigation__button-account:hover {
+  opacity: 0.7;
 }
 
 .navigation__button-account::after {
@@ -86,20 +61,108 @@
   background: #313131;
 }
 
+@media (max-width: 768px) {
+  .navigation {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 50;
+    display: flex;
+    transform: translateX(100%);
+    background-color: rgba(32, 32, 32, 30%);
+  }
+
+  .navigation.active {
+    transform: translateX(0%);
+    transition: all 0.2s;
+  }
+
+  .navigation__nav {
+    transition: all 0.4s;
+    background: #202020;
+    position: absolute;
+    min-width: 67.7%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .navigation__item:first-child {
+    display: block;
+  }
+
+  .navigation__button-close {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    background-image: url('../../images/logo/close.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color: transparent;
+    border-style: none;
+    cursor: pointer;
+    margin-top: 22px;
+    padding: 0;
+    z-index: 1;
+    margin-right: 22px;
+  }
+
+  .navigation__list {
+    padding: 0;
+    margin-top: 132px;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .navigation__item {
+    margin-top: 28px;
+  }
+
+  .navigation__link {
+    color: #fff;
+    text-align: center;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-decoration: none;
+  }
+
+  .navigation__link.active {
+    border-bottom: 2px solid #fff;
+    padding-bottom: 5px;
+  }
+
+  .navigation__button-account {
+    position: absolute;
+    bottom: 90px;
+    left: auto;
+  }
+}
+
 @media (max-width: 550px) {
   .navigation__nav {
     width: 100%;
   }
+
   .navigation__list {
     margin-top: 124px;
   }
-  .navigation.active {
-    transform: translateX(-4%);
-  }
+
   .navigation__button-close {
     margin-right: 15px;
     margin-top: 15px;
   }
+
   .navigation__item {
     margin-top: 24px;
   }

@@ -1,5 +1,5 @@
 .portfolio {
-  padding-bottom: 125px;
+  padding-bottom: 182px;
 }
 
 .portfolio__title {
@@ -57,7 +57,7 @@
 
 @media (max-width: 768px) {
   .portfolio {
-    padding-bottom: 90px;
+    padding-bottom: 147px;
   }
   .portfolio__title {
     margin-top: 85px;
@@ -75,6 +75,9 @@
 }
 
 @media (max-width: 550px) {
+  .portfolio {
+    padding-bottom: 130px;
+  }
   .portfolio__title {
     font-size: 14px;
     font-style: normal;

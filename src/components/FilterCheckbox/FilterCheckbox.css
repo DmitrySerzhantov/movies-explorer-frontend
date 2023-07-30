@@ -2,6 +2,7 @@
   display: flex;
   justify-content: center;
   margin-top: 45px;
+  gap: 10px;
 }
 .filter__checkbox {
   display: none;
@@ -15,6 +16,8 @@
   display: inline-block;
   content: url(../../images/logo/chekbox-off.svg);
   margin-right: 13px;
+  width: 24px;
+  height: 24px;
 }
 
 .filter__checkbox:checked + .filter__label::before {
