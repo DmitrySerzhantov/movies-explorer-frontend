@@ -9,17 +9,21 @@ function MoviesCardList() {
         <MoviesCard owner={false} userId={true}></MoviesCard>
         <MoviesCard owner={false} userId={true}></MoviesCard>
         <MoviesCard owner={false} userId={true}></MoviesCard>
-      </ul>
+        <MoviesCard owner={false} userId={true}></MoviesCard>
 
-      <button
-        className={
-          location.pathname === '/movies'
-            ? 'movies-card__button'
-            : 'movies-card__button_visible_none'
-        }
-      >
-        Ещё
-      </button>
+        <MoviesCard owner={false} userId={true}></MoviesCard>
+      </ul>
+      <div className='movies-card__footer'>
+        <button
+          className={
+            location.pathname === '/movies'
+              ? 'movies-card__button'
+              : 'movies-card__button_visible_none'
+          }
+        >
+          Ещё
+        </button>
+      </div>
     </section>
   );
 }

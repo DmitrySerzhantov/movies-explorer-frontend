@@ -72,7 +72,7 @@
   .footer__nav {
     flex-direction: column-reverse;
     align-items: center;
-    margin-top: 27px;
+    margin-top: 33px;
   }
   .footer__list {
     flex-direction: column;

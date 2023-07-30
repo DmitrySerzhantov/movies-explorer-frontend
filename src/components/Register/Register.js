@@ -6,6 +6,9 @@ function Register() {
   const [nameErrMessage, setNameErrMessage] = useState('');
   const [emailErrMessage, setEmailErrMessage] = useState('');
   const [passwordErrMessage, setPasswordErrMessage] = useState('');
+  const [validEmal, setValidEmal] = useState(false);
+  const [validName, setvalidName] = useState(false);
+  const [validPassword, setvalidPassword] = useState(false);
   return (
     <section className='register'>
       <button className='register__button-home' onClick={() => navigate('/')} />
@@ -22,7 +25,10 @@ function Register() {
           placeholder='Ваше имя'
           maxLength={30}
           minLength={2}
-          onChange={(e) => setNameErrMessage(e.target.validationMessage)}
+          onChange={(e) => {
+            setvalidName(e.target.validity.valid);
+            setNameErrMessage(e.target.validationMessage);
+          }}
         />
         <span className='register__input-error'>{nameErrMessage}</span>
         <span className='register__form-subtitle'>E-mail</span>
@@ -35,24 +41,35 @@ function Register() {
           autoComplete='email'
           className='register__input'
           placeholder='Ваш email'
-          onChange={(e) => setEmailErrMessage(e.target.validationMessage)}
+          onChange={(e) => {
+            setEmailErrMessage(e.target.validationMessage);
+            setValidEmal(e.target.validity.valid);
+          }}
         />
         <span className='register__input-error'>{emailErrMessage}</span>
         <span className='register__form-subtitle'>Пароль</span>
         <input
           required
-          minLength={4}
+          minLength={5}
           className='register__input'
           id='password'
           name='password'
           type='password'
           autoComplete='new-password'
           placeholder='Придумайте пароль'
-          onChange={(e) => setPasswordErrMessage(e.target.validationMessage)}
+          onChange={(e) => {
+            setPasswordErrMessage(e.target.validationMessage);
+            setvalidPassword(e.target.validity.valid);
+          }}
         />
         <span className='register__input-error'>{passwordErrMessage}</span>
       </form>
-      <button className='register__button' onClick={() => navigate('/signin')}>
+      <button
+        type='submit'
+        className='register__button'
+        disabled={validName && validEmal && validPassword ? false : true}
+        onClick={() => navigate('/signin')}
+      >
         Зарегистрироваться
       </button>
       <p className='register__footer'>

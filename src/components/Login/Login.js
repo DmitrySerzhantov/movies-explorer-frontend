@@ -4,6 +4,8 @@ function Login() {
   const navigate = useNavigate();
   const [emailErrMessage, setEmailErrMessage] = useState('');
   const [passwordErrMessage, setPasswordErrMessage] = useState('');
+  const [validEmal, setValidEmal] = useState(false);
+  const [validPassword, setvalidPassword] = useState(false);
   return (
     <section className='register'>
       <button className='register__button-home' onClick={() => navigate('/')} />
@@ -20,7 +22,10 @@ function Login() {
           maxLength='40'
           className='register__input'
           placeholder='Ваш email'
-          onChange={(e) => setEmailErrMessage(e.target.validationMessage)}
+          onChange={(e) => {
+            setEmailErrMessage(e.target.validationMessage);
+            setValidEmal(e.target.validity.valid);
+          }}
         />
         <span className='register__input-error'>{emailErrMessage}</span>
         <span className='register__form-subtitle'>Пароль</span>
@@ -34,13 +39,20 @@ function Login() {
           maxLength='40'
           autoComplete='new-password'
           placeholder='Ваш пароль'
-          onChange={(e) => setPasswordErrMessage(e.target.validationMessage)}
+          onChange={(e) => {
+            setPasswordErrMessage(e.target.validationMessage);
+            setvalidPassword(e.target.validity.valid);
+          }}
         />
         <span htmlFor='password' className='register__input-error'>
           {passwordErrMessage}
         </span>
       </form>
-      <button className='register__button' onClick={() => navigate('/movies')}>
+      <button
+        className='register__button'
+        disabled={validEmal && validPassword ? false : true}
+        onClick={() => navigate('/movies')}
+      >
         Войти
       </button>
       <p className='register__footer'>

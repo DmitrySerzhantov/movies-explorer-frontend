@@ -52,33 +52,33 @@ function Profile() {
           />
           <span className='profile__error'>{emailErrMessage}</span>
         </label>
+        <button
+          type='button'
+          className={
+            editProfile ? 'profile__button-edit' : 'profile__button-hide'
+          }
+          onClick={() => setEditProfile(false)}
+        >
+          Редактировать
+        </button>
+        <button
+          className={
+            editProfile ? 'profile__button-logout ' : 'profile__button-hide'
+          }
+          onClick={() => navigate('/signin')}
+        >
+          Выйти из аккаунта
+        </button>
+        <button
+          disabled={validName && validEmal ? false : true}
+          type='submit'
+          className={
+            !editProfile ? 'profile__button-save' : 'profile__button-hide'
+          }
+        >
+          Сохранить
+        </button>
       </form>
-      <button
-        type='button'
-        className={
-          editProfile ? 'profile__button-edit' : 'profile__button-hide'
-        }
-        onClick={() => setEditProfile(false)}
-      >
-        Редактировать
-      </button>
-      <button
-        className={
-          editProfile ? 'profile__button-logout ' : 'profile__button-hide'
-        }
-        onClick={() => navigate('/signin')}
-      >
-        Выйти из аккаунта
-      </button>
-      <button
-        disabled={validName && validEmal ? false : true}
-        type='submit'
-        className={
-          !editProfile ? 'profile__button-save' : 'profile__button-hide'
-        }
-      >
-        Сохранить
-      </button>
     </section>
   );
 }

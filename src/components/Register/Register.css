@@ -1,10 +1,9 @@
 .register {
   width: 31%;
-  margin: 0 auto;
-  min-height: 100vh;
+  margin: auto auto;
+  min-height: 560px;
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
 }
 
 .register__button-home {
@@ -17,7 +16,6 @@
   padding: 0;
   display: flex;
   cursor: pointer;
-  margin-top: 70px;
 }
 .register__button-home:hover {
   opacity: 0.8;
@@ -42,7 +40,7 @@
   margin-top: 40px;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  min-height: 211px;
 }
 .register__input {
   padding: 0;
@@ -80,7 +78,7 @@
   flex-shrink: 0;
   border-radius: 3px;
   background: #4285f4;
-  margin: 20px auto 0;
+  margin: 122px auto 0;
   border-style: none;
   color: #fff;
   font-size: 14px;
@@ -108,6 +106,10 @@
   font-size: 14px;
   line-height: normal;
 }
+.register__button:disabled {
+  color: #c2c2c2;
+  background: #f8f8f8;
+}
 @media (max-width: 1024px) {
   .register {
     width: 39%;
@@ -118,24 +120,21 @@
   .register {
     width: 51.5%;
   }
-  .register__button-home {
-    margin-top: 27vh;
-  }
 }
 
 @media (max-width: 550px) {
   .register {
-    width: 82%;
+    width: 81%;
   }
   .register__button-home {
-    margin: 7vh auto 0;
+    margin: 20px auto 0;
   }
   .register__title {
-    margin-top: 6vh;
+    margin-top: 50px;
     text-align: center;
   }
   .register__form {
-    margin-top: 7vh;
+    margin-top: 75px;
   }
   .register__button {
     font-size: 12px;
