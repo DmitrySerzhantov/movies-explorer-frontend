@@ -1,4 +1,4 @@
-import {portfolioItems} from '../../utils/constans';
+import {portfolioItems} from '../../utils/const';
 function Portfolio() {
   return (
     <section className='portfolio'>

@@ -1,7 +1,7 @@
 import {Route, Routes, Link, useNavigate, useLocation} from 'react-router-dom';
 import {useEffect, useState} from 'react';
 import Navigation from '../Navigation/Navigation';
-import {itemNavigation} from '../../utils/constans';
+import {itemNavigation} from '../../utils/const';
 function Header() {
   const [menuActive, setMenuActive] = useState(false);
   let location = useLocation();
