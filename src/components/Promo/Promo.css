@@ -50,21 +50,21 @@
   opacity: 0.8;
 }
 .promo__logo {
-  width: 310px;
+  max-width: 40%;
   height: 100%;
   margin-top: 150px;
 }
 
-
 @media (max-width: 768px) {
   .promo {
-    padding-bottom: 78px;
+    padding-bottom: 76px;
   }
   .promo__body {
     flex-direction: column-reverse;
     align-items: center;
   }
   .promo__logo {
+    max-width: 46%;
     margin-top: 215px;
   }
   .promo__about {
@@ -82,9 +82,8 @@
     max-width: 260px;
   }
   .promo__button {
-    margin: 90px auto 0;
+    margin: 93px auto 0;
   }
-
 }
 
 @media (max-width: 550px) {

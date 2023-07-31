@@ -51,7 +51,9 @@ function Login() {
       <button
         className='register__button'
         disabled={validEmal && validPassword ? false : true}
+        onChange={(e) => console.log(e)}
         onClick={() => navigate('/movies')}
+        
       >
         Войти
       </button>

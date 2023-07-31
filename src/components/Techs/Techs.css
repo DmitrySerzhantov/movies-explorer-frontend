@@ -12,10 +12,10 @@
   margin-bottom: 0;
 }
 .techs__text {
-  margin: 27px auto 0;
-  max-width: 465px;
+  margin: 24px auto 0;
+  max-width: 457px;
   line-height: 20px;
-  letter-spacing: -1.56px;
+  letter-spacing: 0.5px;
 }
 .techs__list {
   padding-left: 0;
@@ -25,6 +25,7 @@
   margin-top: 100px;
   justify-content: center;
   margin-bottom: 0;
+  flex-wrap: wrap;
 }
 
 .techs__item {
