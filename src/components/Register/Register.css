@@ -125,22 +125,35 @@
 @media (max-width: 550px) {
   .register {
     width: 81%;
+    padding-top: 25px;
+    display: grid;
+    grid-template-rows: 7% 21.5% 200px 1fr 4%;
+    min-height: 89vh;
   }
+
   .register__button-home {
-    margin: 20px auto 0;
+    margin: 0px auto 0;
   }
   .register__title {
-    margin-top: 50px;
+    margin-top: 43px;
     text-align: center;
   }
   .register__form {
-    margin-top: 75px;
+    margin-top: 0px;
+  }
+  .register__input {
+    margin-top: 0;
+    padding-bottom: 8px;
   }
   .register__button {
+    margin: 0;
     font-size: 12px;
+    align-self: end;
   }
   .register__footer {
     font-size: 12px;
+    margin: 0;
+    align-self: flex-end;
   }
   .register__footer-button {
     font-size: 12px;
