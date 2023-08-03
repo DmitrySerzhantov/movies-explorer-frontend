@@ -1,0 +1,60 @@
+.card {
+  max-width: 364px;
+  background: #222;
+  box-shadow: 0px 4px 30px 0px rgba(0, 0, 0, 0.08);
+}
+.card__info {
+  max-width: 92%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-rows: 50% 50%;
+  grid-template-areas: 'name button' 'duration butoon';
+  justify-content: space-between;
+}
+.card__name-movie {
+  font-size: 15px;
+  font-weight: 500;
+  margin-top: 19px;
+  margin-bottom: 0;
+  grid-area: name;
+}
+.card__duration {
+  grid-area: duration;
+  color: #8b8b8b;
+  text-align: left;
+  font-size: 11px;
+  margin-top: 8px;
+}
+.card__button {
+  margin-top: 22px;
+  grid-area: button;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  border-style: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+.card__button_style_save {
+  background-image: url('../../images/logo/save.svg');
+}
+.card__button_style_delete {
+  background-image: url('../../images/logo/delete-card.svg');
+}
+.card__button_style_saved {
+  background-image: url('../../images/logo/save-green.svg');
+}
+.card__button-save:hover {
+  opacity: 0.8;
+}
+.card__poster {
+  width: 100%;
+}
+@media (max-width: 550px) {
+  .card {
+    margin: 0 auto;
+  }
+  .card__poster {
+    max-width: 100%;
+  }
+}

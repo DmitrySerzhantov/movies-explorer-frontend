@@ -1,0 +1,18 @@
+.movies {
+  background-color: #202020;
+  flex-grow: 1;
+}
+.movies__container {
+  max-width: 89%;
+  margin: 0 auto;
+}
+@media (max-width: 768px) {
+  .movies__container {
+    max-width: 92%;
+  }
+}
+@media (max-width: 550px) {
+  .movies__container {
+    max-width: 93%;
+  }
+}
