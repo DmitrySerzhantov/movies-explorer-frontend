@@ -1,16 +1,16 @@
-export const BASE_URL = 'https://api.Serzhantov.nomoreparties.sbs';
+export const BASE_URL = 'http://localhost:3000';
 function getResponseData(res) {
   return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
 }
 
-export const register = (password, email) => {
+export const register = (name, password, email) => {
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     credentials: 'include',
-    body: JSON.stringify({password, email}),
+    body: JSON.stringify({name, password, email}),
   }).then((res) => getResponseData(res));
 };
 
