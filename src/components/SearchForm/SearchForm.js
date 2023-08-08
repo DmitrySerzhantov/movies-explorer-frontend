@@ -2,9 +2,16 @@ import {useState} from 'react';
 import searchIcon from '../../images/logo/icon-find.svg';
 import Preloader from '../Preloader/Preloader';
 
-function SearchForm({findMovies, setIsValidForm, setFoundMovies}) {
-  const [formValue, setFormValue] = useState('');
+function SearchForm({
+  formValue,
+  setFormValue,
+  findMovies,
+  setIsValidForm,
+  setFoundMovies,
+  savedDataLocalStorage,
+}) {
   const [validSearchForm, setValidSearchForm] = useState(false);
+
   function handleSearchForm(movie) {
     if (movie.length === 0) {
       setIsValidForm('Ничего не найдено');
@@ -12,6 +19,7 @@ function SearchForm({findMovies, setIsValidForm, setFoundMovies}) {
       setIsValidForm('');
     }
   }
+
   function handleFindMovies() {
     findMovies()
       .then((res) => {
@@ -20,6 +28,7 @@ function SearchForm({findMovies, setIsValidForm, setFoundMovies}) {
         });
         setFoundMovies(movie);
         handleSearchForm(movie);
+        savedDataLocalStorage(movie);
       })
       .catch((err) => {
         console.log(err);
@@ -49,7 +58,7 @@ function SearchForm({findMovies, setIsValidForm, setFoundMovies}) {
         />
         <input
           required
-          pattern="\S(.*\S)?"
+          pattern='\S(.*\S)?'
           title='Текст поиска'
           type='text'
           minLength={1}
@@ -57,7 +66,9 @@ function SearchForm({findMovies, setIsValidForm, setFoundMovies}) {
           placeholder='Фильм'
           onChange={(e) => {
             setValidSearchForm(e.target.validity.valid);
+            setFormValue(e.target.value);
           }}
+          value={formValue ?? ''}
         />
         <button
           onClick={(e) => {

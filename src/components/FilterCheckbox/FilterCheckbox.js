@@ -1,7 +1,13 @@
-function FilterCheckbox() {
+function FilterCheckbox({isCheckboxChecked, setIsCheckboxChecked}) {
   return (
     <section className='filter'>
-      <input className='filter__checkbox' id='checkbox' type='checkbox' />
+      <input
+        onChange={(e) => setIsCheckboxChecked(e.currentTarget.checked)}
+        className='filter__checkbox'
+        id='checkbox'
+        type='checkbox'
+        checked={isCheckboxChecked ?? false}
+      />
       <label className='filter__label' htmlFor='checkbox'>
         Короткометражки
       </label>
