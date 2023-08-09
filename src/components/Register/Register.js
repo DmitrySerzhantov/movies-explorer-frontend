@@ -1,19 +1,64 @@
 import {useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 
-function Register() {
+function Register({handleRegister}) {
   const navigate = useNavigate();
   const [nameErrMessage, setNameErrMessage] = useState('');
   const [emailErrMessage, setEmailErrMessage] = useState('');
   const [passwordErrMessage, setPasswordErrMessage] = useState('');
-  const [validEmal, setValidEmal] = useState(false);
-  const [validName, setvalidName] = useState(false);
-  const [validPassword, setvalidPassword] = useState(false);
+  const [nameValid, setNameValid] = useState(false);
+  const [emailValid, setEmailValid] = useState(false);
+  const [passwordValid, setpasswordValid] = useState(false);
+  const [validForm, setValidForm] = useState(false);
+
+  const [formValue, setFormValue] = useState({
+    name: '',
+    username: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
+
+  const handleChange = (e) => {
+    const {name, value, validationMessage, id} = e.target;
+    if (id === 'name') {
+      setNameErrMessage(validationMessage);
+      setNameValid(e.target.validity.valid);
+    } else if (id === 'email') {
+      setEmailValid(e.target.validity.valid);
+      setEmailErrMessage(validationMessage);
+    } else if (id === 'password') {
+      setpasswordValid(e.target.validity.valid);
+      setPasswordErrMessage(validationMessage);
+    }
+    setFormValue({
+      ...formValue,
+      [name]: value,
+    });
+  };
+  const validateForm = (e) => {
+    setValidForm(nameValid && emailValid && passwordValid);
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (formValue.password === formValue.confirmPassword) {
+      console.log('Passwords should be equal');
+      return;
+    }
+    const {name, password, email} = formValue;
+    handleRegister(name, password, email);
+  };
+
   return (
     <section className='register'>
       <button className='register__button-home' onClick={() => navigate('/')} />
       <h1 className='register__title'>Добро пожаловать!</h1>
-      <form className='register__form'>
+      <form
+        required
+        className='register__form'
+        onChange={validateForm}
+        onSubmit={handleSubmit}
+      >
         <span className='register__form-subtitle'>Имя</span>
         <input
           required
@@ -25,10 +70,8 @@ function Register() {
           placeholder='Ваше имя'
           maxLength={30}
           minLength={2}
-          onChange={(e) => {
-            setvalidName(e.target.validity.valid);
-            setNameErrMessage(e.target.validationMessage);
-          }}
+          value={formValue.name}
+          onChange={handleChange}
         />
         <span className='register__input-error'>{nameErrMessage}</span>
         <span className='register__form-subtitle'>E-mail</span>
@@ -41,10 +84,8 @@ function Register() {
           autoComplete='email'
           className='register__input'
           placeholder='Ваш email'
-          onChange={(e) => {
-            setEmailErrMessage(e.target.validationMessage);
-            setValidEmal(e.target.validity.valid);
-          }}
+          value={formValue.email}
+          onChange={handleChange}
         />
         <span className='register__input-error'>{emailErrMessage}</span>
         <span className='register__form-subtitle'>Пароль</span>
@@ -57,21 +98,18 @@ function Register() {
           type='password'
           autoComplete='new-password'
           placeholder='Придумайте пароль'
-          onChange={(e) => {
-            setPasswordErrMessage(e.target.validationMessage);
-            setvalidPassword(e.target.validity.valid);
-          }}
+          value={formValue.password}
+          onChange={handleChange}
         />
         <span className='register__input-error'>{passwordErrMessage}</span>
+        <button
+          type='submit'
+          className='register__button'
+          disabled={validForm ? false : true}
+        >
+          Зарегистрироваться
+        </button>
       </form>
-      <button
-        type='submit'
-        className='register__button'
-        disabled={validName && validEmal && validPassword ? false : true}
-        onClick={() => navigate('/signin')}
-      >
-        Зарегистрироваться
-      </button>
       <p className='register__footer'>
         Уже зарегистрированы?{' '}
         <Link className='register__footer-button' to='/signin'>

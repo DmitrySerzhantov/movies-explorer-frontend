@@ -29,7 +29,7 @@ function MoviesCardList({isValidForm, foundMovies}) {
   useEffect(() => {
     setMovies(foundMovies);
     setWidthWindow(window.outerWidth);
-  }, [foundMovies, setWidthWindow, widthWindow, numberOfCards]);
+  }, [foundMovies, setWidthWindow, widthWindow, numberOfCards, location]);
 
   var doit;
   window.onresize = function (e) {
@@ -41,22 +41,25 @@ function MoviesCardList({isValidForm, foundMovies}) {
     <section className='movies-card'>
       <span className='movies-card__list-span'>{isValidForm}</span>
       <ul className='movies-card__list'>
-        {movies.map((movie, i) => {
-          let item;
-          if (i < numberOfCards) {
-            return (item = (
-              <MoviesCard
-                key={movie.id}
-                nameRU={movie.nameRU}
-                duration={movie.duration}
-                image={movie.image}
-                owner={false}
-                userId={true}
-              ></MoviesCard>
-            ));
-          }
-          return item;
-        })}
+        {movies !== undefined
+          ? movies.map((movie, i) => {
+              let item;
+              if (i < numberOfCards) {
+                return (item = (
+                  <MoviesCard
+                    key={movie.id}
+                    movie={movie}
+                    nameRU={movie.nameRU}
+                    duration={movie.duration}
+                    image={movie.image}
+                    owner={false}
+                    userId={true}
+                  ></MoviesCard>
+                ));
+              }
+              return item;
+            })
+          : ''}
       </ul>
       <div className='movies-card__footer'>
         <button
