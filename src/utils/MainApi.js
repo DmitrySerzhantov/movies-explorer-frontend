@@ -2,15 +2,33 @@ export const BASE_URL = 'http://localhost:3000';
 function getResponseData(res) {
   return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
 }
+export const getMovies = () => {
+  return fetch(`${BASE_URL}/movies`, {
+    method: 'GET',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then((res) => getResponseData(res));
+};
 
-export const savedMovie = (movie) => {
+export const savedMovie = (dataForSavingMovie) => {
   return fetch(`${BASE_URL}/movies`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     credentials: 'include',
-    body: JSON.stringify({movie}),
+    body: JSON.stringify(dataForSavingMovie),
+  }).then((res) => getResponseData(res));
+};
+export const deleteMovie = (_id) => {
+  return fetch(`${BASE_URL}/movies/${_id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
   }).then((res) => getResponseData(res));
 };
 
@@ -37,7 +55,7 @@ export const login = (password, email) => {
   }).then((res) => getResponseData(res));
 };
 
-export const logout = (password, email) => {
+export const logout = () => {
   return fetch(`${BASE_URL}/logout`, {
     method: 'POST',
     credentials: 'include',
@@ -45,11 +63,21 @@ export const logout = (password, email) => {
       'Content-Type': 'application/json',
     },
 
-    body: JSON.stringify({password, email}),
+    body: JSON.stringify(),
   }).then((res) => getResponseData(res));
 };
 
 export const checkToken = () => {
+  return fetch(`${BASE_URL}/users/me`, {
+    method: 'GET',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then((res) => getResponseData(res));
+};
+
+export const getUserProfile = () => {
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
     credentials: 'include',

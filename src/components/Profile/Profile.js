@@ -1,8 +1,7 @@
-import {useNavigate} from 'react-router-dom';
 import {useState, useEffect} from 'react';
+import {logout} from '../../utils/MainApi';
 
 function Profile() {
-  const navigate = useNavigate();
   const [editProfile, setEditProfile] = useState(true);
   useEffect(() => {}, [editProfile]);
   const [emailErrMessage, setEmailErrMessage] = useState(true);
@@ -65,7 +64,10 @@ function Profile() {
           className={
             editProfile ? 'profile__button-logout ' : 'profile__button-hide'
           }
-          onClick={() => navigate('/signin')}
+          onClick={() => {
+            localStorage.clear();
+            logout();
+          }}
         >
           Выйти из аккаунта
         </button>

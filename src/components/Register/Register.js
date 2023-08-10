@@ -16,7 +16,6 @@ function Register({handleRegister}) {
     username: '',
     email: '',
     password: '',
-    confirmPassword: '',
   });
 
   const handleChange = (e) => {
@@ -41,10 +40,7 @@ function Register({handleRegister}) {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (formValue.password === formValue.confirmPassword) {
-      console.log('Passwords should be equal');
-      return;
-    }
+
     const {name, password, email} = formValue;
     handleRegister(name, password, email);
   };

@@ -2,9 +2,13 @@ import {useLocation} from 'react-router-dom';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import {useEffect, useState} from 'react';
 
-function MoviesCardList({isValidForm, foundMovies}) {
+function MoviesCardList({
+  isValidForm,
+  foundMovies,
+  arrSavedMovies,
+  setArrSavedMovies,
+}) {
   let location = useLocation();
-  const [movies, setMovies] = useState([]);
   const [numberOfCards, setNumberOfCards] = useState(null);
   const [widthWindow, setWidthWindow] = useState(null);
 
@@ -27,7 +31,6 @@ function MoviesCardList({isValidForm, foundMovies}) {
   }, [widthWindow]);
 
   useEffect(() => {
-    setMovies(foundMovies);
     setWidthWindow(window.outerWidth);
   }, [foundMovies, setWidthWindow, widthWindow, numberOfCards, location]);
 
@@ -41,19 +44,16 @@ function MoviesCardList({isValidForm, foundMovies}) {
     <section className='movies-card'>
       <span className='movies-card__list-span'>{isValidForm}</span>
       <ul className='movies-card__list'>
-        {movies !== undefined
-          ? movies.map((movie, i) => {
+        {foundMovies !== undefined
+          ? foundMovies.map((movie, i) => {
               let item;
               if (i < numberOfCards) {
                 return (item = (
                   <MoviesCard
-                    key={movie.id}
+                    key={i}
+                    setArrSavedMovies={setArrSavedMovies}
+                    arrSavedMovies={arrSavedMovies}
                     movie={movie}
-                    nameRU={movie.nameRU}
-                    duration={movie.duration}
-                    image={movie.image}
-                    owner={false}
-                    userId={true}
                   ></MoviesCard>
                 ));
               }
