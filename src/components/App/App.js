@@ -9,14 +9,16 @@ import Profile from '../Profile/Profile';
 import NotFound from '../NotFound/NotFound';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import {checkToken, login, register} from '../../utils/MainApi';
+import {checkToken, getMovies, login, register} from '../../utils/MainApi';
 import {CurrentUserContext} from '../../contexts/CurrentUserContext';
-import {useEffect, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const loggedIn = localStorage.getItem('LoggedIn');
   const [currentUser, setCurrentUser] = useState({});
+  const [foundMovies, setFoundMovies] = useState([]);
+  const [arrSavedMovies, setArrSavedMovies] = useState([]);
   let location = useLocation();
   const navigate = useNavigate();
 
@@ -43,20 +45,22 @@ function App() {
   const tokenCheck = () => {
     checkToken()
       .then((user) => {
-        setLoggedIn(true);
         setCurrentUser(user);
+        localStorage.setItem('LoggedIn', true);
       })
       .catch((err) => {
         console.log(err);
-        setLoggedIn(false);
+        localStorage.clear();
       });
   };
 
   function handleLogin(password, email) {
     login(password, email)
-      .then((data) => {
-        if (data) {
-          setLoggedIn(true);
+      .then((user) => {
+        if (user) {
+          localStorage.setItem('LoggedIn', true);
+
+          setCurrentUser(user.data);
           navigate('/movies');
         }
       })
@@ -65,6 +69,15 @@ function App() {
       });
   }
 
+  const getSavedMovies = useCallback(() => {
+    getMovies(currentUser._id)
+      .then((res) => {
+        setArrSavedMovies(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [currentUser._id]);
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='App '>
@@ -75,22 +88,34 @@ function App() {
             <Route
               path='/saved-movies'
               element={
-                <ProtectedRoute loggedIn={loggedIn} element={SavedMovies} />
-              }
-            />
-            <Route
-              path='/profile'
-              element={
                 <ProtectedRoute
-                  setLoggedIn={setLoggedIn}
+                  foundMovies={foundMovies}
+                  setFoundMovies={setFoundMovies}
+                  arrSavedMovies={arrSavedMovies}
+                  setArrSavedMovies={setArrSavedMovies}
                   loggedIn={loggedIn}
-                  element={Profile}
+                  getSavedMovies={getSavedMovies}
+                  element={SavedMovies}
                 />
               }
             />
             <Route
+              path='/profile'
+              element={<ProtectedRoute loggedIn={loggedIn} element={Profile} />}
+            />
+            <Route
               path='/movies'
-              element={<ProtectedRoute loggedIn={loggedIn} element={Movies} />}
+              element={
+                <ProtectedRoute
+                  getSavedMovies={getSavedMovies}
+                  foundMovies={foundMovies}
+                  setFoundMovies={setFoundMovies}
+                  arrSavedMovies={arrSavedMovies}
+                  setArrSavedMovies={setArrSavedMovies}
+                  loggedIn={loggedIn}
+                  element={Movies}
+                />
+              }
             />
 
             <Route path='/signin' element={<Login onLogin={handleLogin} />} />

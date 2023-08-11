@@ -1,38 +1,32 @@
 import {Link, useLocation} from 'react-router-dom';
-import {useContext, useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {BASE_URL_BEATFILM_MOVIES} from '../../utils/MoviesApi';
 import {deleteMovie, savedMovie} from '../../utils/MainApi';
-import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 
 function MoviesCard({movie, arrSavedMovies, setArrSavedMovies}) {
   const [movieSaved, setMovieSaved] = useState({});
-  const currentUser = useContext(CurrentUserContext);
+
   const [isSavedMovie, setIsSavedMovie] = useState(false);
-  const dataForSavingMovie = {
-    country: movie.country,
-    director: movie.director,
-    duration: movie.duration,
-    year: movie.year,
-    description: movie.description,
-    trailerLink: movie.trailerLink,
-    movieId: movie.id,
-    thumbnail: `${BASE_URL_BEATFILM_MOVIES}${movie.image.formats.thumbnail.url}`,
-    image: `${BASE_URL_BEATFILM_MOVIES}${movie.image.url}`,
-    nameRU: movie.nameRU,
-    nameEN: movie.nameEN,
-  };
+  const [srcImage, setSrcImage] = useState('');
+  const [idMovie, setIdMovie] = useState('');
+
   let location = useLocation();
   const min = movie.duration % 60;
   const hr = (movie.duration - min) / 60;
   const [styleButtton, setStyleButtton] = useState('card__button_style_save');
   useEffect(() => {
+    setSrcImage(`${BASE_URL_BEATFILM_MOVIES}${movie.image.url}`);
     if (location.pathname === '/saved-movies') {
       setStyleButtton('card__button_style_delete');
+      setSrcImage(movie.image);
+      setIdMovie(movie._id);
+      setIsSavedMovie(true);
     } else if (isSavedMovie && location.pathname === '/movies') {
       setStyleButtton('card__button_style_saved');
+      setIdMovie(movieSaved._id);
     }
     checkIsSavedMovie();
-  }, [location.pathname, currentUser, isSavedMovie]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [arrSavedMovies]); // eslint-disable-line react-hooks/exhaustive-deps
 
   function checkIsSavedMovie() {
     arrSavedMovies.map((item) => {
@@ -40,9 +34,11 @@ function MoviesCard({movie, arrSavedMovies, setArrSavedMovies}) {
         setIsSavedMovie(true);
         setMovieSaved(item);
       }
+
       return item;
     });
   }
+
   function updateArrSavedMovies(element) {
     if (!isSavedMovie) {
       setArrSavedMovies([...arrSavedMovies, element]);
@@ -53,8 +49,21 @@ function MoviesCard({movie, arrSavedMovies, setArrSavedMovies}) {
     }
   }
 
-  function handleCardSave() {
+  function handleCardSave(e) {
     if (!isSavedMovie) {
+      const dataForSavingMovie = {
+        country: movie.country,
+        director: movie.director,
+        duration: movie.duration,
+        year: movie.year,
+        description: movie.description,
+        trailerLink: movie.trailerLink,
+        movieId: movie.id,
+        thumbnail: `${BASE_URL_BEATFILM_MOVIES}${movie.image.formats.thumbnail.url}`,
+        image: `${BASE_URL_BEATFILM_MOVIES}${movie.image.url}`,
+        nameRU: movie.nameRU,
+        nameEN: movie.nameEN,
+      };
       savedMovie(dataForSavingMovie)
         .then((res) => {
           updateArrSavedMovies(res);
@@ -64,7 +73,7 @@ function MoviesCard({movie, arrSavedMovies, setArrSavedMovies}) {
           console.log(err);
         });
     } else if (isSavedMovie) {
-      deleteMovie(movieSaved._id)
+      deleteMovie(idMovie)
         .then((res) => {
           updateArrSavedMovies(res);
           setIsSavedMovie(false);
@@ -82,7 +91,7 @@ function MoviesCard({movie, arrSavedMovies, setArrSavedMovies}) {
         <h3 className='card__name-movie'>{movie.nameRU}</h3>
         <span className='card__duration'>{`${hr}ч ${min}м`} </span>
         <button
-          onClick={() => handleCardSave()}
+          onClick={handleCardSave}
           className={`card__button ${styleButtton}`}
         />
       </div>
@@ -93,7 +102,7 @@ function MoviesCard({movie, arrSavedMovies, setArrSavedMovies}) {
           onClick={() => {
             console.log(movie.trailerLink);
           }}
-          src={`${BASE_URL_BEATFILM_MOVIES}${movie.image.url}`}
+          src={srcImage}
         ></img>
       </Link>
     </section>

@@ -4,16 +4,15 @@ import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 import {useNavigate} from 'react-router-dom';
 import Preloader from '../Preloader/Preloader';
 
-function Profile(props) {
+function Profile() {
+  const currentUser = useContext(CurrentUserContext);
   const [editProfile, setEditProfile] = useState(true);
-  useEffect(() => {}, [editProfile]);
   const [emailErrMessage, setEmailErrMessage] = useState(true);
   const [nameErrMessage, setNameErrMessage] = useState(true);
   const [nameValid, setNameValid] = useState(false);
   const [emailValid, setEmailValid] = useState(false);
   const [validForm, setValidForm] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('');
-  const currentUser = useContext(CurrentUserContext);
   const [formValue, setFormValue] = useState({
     name: currentUser.name,
     email: currentUser.email,
@@ -62,7 +61,6 @@ function Profile(props) {
 
     setUserProfile(formValue)
       .then((res) => {
-        console.log(res);
         setFormValue({
           name: res.name,
           email: res.email,
@@ -135,7 +133,6 @@ function Profile(props) {
             logout()
               .then((res) => {
                 localStorage.clear();
-                props.setLoggedIn(false);
                 navigate('/');
               })
               .catch((err) => {

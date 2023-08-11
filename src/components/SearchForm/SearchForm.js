@@ -1,47 +1,16 @@
 import {useState} from 'react';
 import searchIcon from '../../images/logo/icon-find.svg';
-import Preloader from '../Preloader/Preloader';
 
 function SearchForm({
   formValue,
   setFormValue,
-  findMovies,
   setIsValidForm,
-  setFoundMovies,
-  savedDataLocalStorage,
+  handleFindMovies,
+  handleSubmit
 }) {
   const [validSearchForm, setValidSearchForm] = useState(false);
 
-  function handleSearchForm(movie) {
-    if (movie.length === 0) {
-      setIsValidForm('Ничего не найдено');
-    } else {
-      setIsValidForm('');
-    }
-  }
 
-  function handleFindMovies() {
-    findMovies()
-      .then((res) => {
-        const movie = res.filter((e) => {
-          return e.nameRU.toLowerCase().includes(formValue.toLowerCase());
-        });
-        setFoundMovies(movie);
-        handleSearchForm(movie);
-        savedDataLocalStorage(movie);
-      })
-      .catch((err) => {
-        console.log(err);
-        setIsValidForm(
-          'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'
-        );
-      });
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    setIsValidForm(<Preloader />);
-  }
   return (
     <section className='search'>
       <form
