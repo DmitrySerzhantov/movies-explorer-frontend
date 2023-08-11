@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 
 function Register({handleRegister}) {
@@ -21,7 +21,11 @@ function Register({handleRegister}) {
   const handleChange = (e) => {
     const {name, value, validationMessage, id} = e.target;
     if (id === 'name') {
-      setNameErrMessage(validationMessage);
+      e.target.validity.patternMismatch
+        ? setNameErrMessage(
+            'Допустимы только: латинские или кириллические буквы, пробел и тире .'
+          )
+        : setNameErrMessage(validationMessage);
       setNameValid(e.target.validity.valid);
     } else if (id === 'email') {
       setEmailValid(e.target.validity.valid);
@@ -35,9 +39,11 @@ function Register({handleRegister}) {
       [name]: value,
     });
   };
-  const validateForm = (e) => {
+
+  useEffect(() => {
     setValidForm(nameValid && emailValid && passwordValid);
-  };
+  }, [nameValid, emailValid, passwordValid]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -49,18 +55,14 @@ function Register({handleRegister}) {
     <section className='register'>
       <button className='register__button-home' onClick={() => navigate('/')} />
       <h1 className='register__title'>Добро пожаловать!</h1>
-      <form
-        required
-        className='register__form'
-        onChange={validateForm}
-        onSubmit={handleSubmit}
-      >
+      <form required className='register__form' onSubmit={handleSubmit}>
         <span className='register__form-subtitle'>Имя</span>
         <input
           required
           id='name'
           name='name'
           type='text'
+          pattern='[a-zA-Zа-яА-Я\s\-]{0,}'
           autoComplete='name'
           className='register__input'
           placeholder='Ваше имя'

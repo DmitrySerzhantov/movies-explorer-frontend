@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 function Login({onLogin}) {
   const navigate = useNavigate();
@@ -27,9 +27,10 @@ function Login({onLogin}) {
       [name]: value,
     });
   };
-  const validateForm = (e) => {
+
+  useEffect(() => {
     setValidForm(emailValid && passwordValid);
-  };
+  }, [emailValid, passwordValid]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,11 +40,7 @@ function Login({onLogin}) {
     <section className='register'>
       <button className='register__button-home' onClick={() => navigate('/')} />
       <h1 className='register__title'>Рады видеть!</h1>
-      <form
-        className='register__form'
-        onChange={validateForm}
-        onSubmit={handleSubmit}
-      >
+      <form className='register__form' onSubmit={handleSubmit}>
         <span className='register__form-subtitle'>E-mail</span>
         <input
           required

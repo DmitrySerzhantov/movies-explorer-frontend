@@ -2,6 +2,21 @@ export const BASE_URL = 'http://localhost:3000';
 function getResponseData(res) {
   return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
 }
+
+export const setUserProfile = (data) => {
+  return fetch(`${BASE_URL}/users/me`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+    body: JSON.stringify({
+      name: data.name,
+      email: data.email,
+    }),
+  }).then((res) => getResponseData(res));
+};
+
 export const getMovies = () => {
   return fetch(`${BASE_URL}/movies`, {
     method: 'GET',
@@ -68,16 +83,6 @@ export const logout = () => {
 };
 
 export const checkToken = () => {
-  return fetch(`${BASE_URL}/users/me`, {
-    method: 'GET',
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  }).then((res) => getResponseData(res));
-};
-
-export const getUserProfile = () => {
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
     credentials: 'include',
