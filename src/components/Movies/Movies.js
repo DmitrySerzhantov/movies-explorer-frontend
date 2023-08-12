@@ -40,7 +40,6 @@ function Movies({
   function handleFindMovies() {
     findMovies()
       .then((res) => {
-        console.log(res);
         const movie = res.filter((e) => {
           return (
             e.nameRU.toLowerCase().includes(formValue.toLowerCase()) ||

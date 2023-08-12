@@ -11,7 +11,7 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import {checkToken, getMovies, login, register} from '../../utils/MainApi';
 import {CurrentUserContext} from '../../contexts/CurrentUserContext';
-import {useCallback, useEffect, useState} from 'react';
+import {useCallback, useState} from 'react';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
@@ -26,23 +26,18 @@ function App() {
     (i) => i === location.pathname
   );
 
-  useEffect(() => {
-    tokenCheck();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
   function handleRegister(name, password, email) {
     register(name, password, email)
       .then((res) => {
-        if (res.data) {
-          navigate('/movies');
-        }
+        handleLogin(password, email);
+        navigate('/movies');
       })
       .catch((err) => {
         console.log(err);
       });
   }
 
-  const tokenCheck = () => {
+  const tokenCheck = useCallback(() => {
     checkToken()
       .then((user) => {
         setCurrentUser(user);
@@ -51,8 +46,9 @@ function App() {
       .catch((err) => {
         console.log(err);
         localStorage.clear();
+        navigate('/');
       });
-  };
+  }, [navigate]);
 
   function handleLogin(password, email) {
     login(password, email)
@@ -89,6 +85,7 @@ function App() {
               path='/saved-movies'
               element={
                 <ProtectedRoute
+                  tokenCheck={tokenCheck}
                   foundMovies={foundMovies}
                   setFoundMovies={setFoundMovies}
                   arrSavedMovies={arrSavedMovies}
@@ -101,12 +98,19 @@ function App() {
             />
             <Route
               path='/profile'
-              element={<ProtectedRoute loggedIn={loggedIn} element={Profile} />}
+              element={
+                <ProtectedRoute
+                  tokenCheck={tokenCheck}
+                  loggedIn={loggedIn}
+                  element={Profile}
+                />
+              }
             />
             <Route
               path='/movies'
               element={
                 <ProtectedRoute
+                  tokenCheck={tokenCheck}
                   getSavedMovies={getSavedMovies}
                   foundMovies={foundMovies}
                   setFoundMovies={setFoundMovies}
@@ -127,6 +131,7 @@ function App() {
           </Routes>
           <Routes>
             <Route path={path} element={<Footer />} />
+            <Route path='*' element={<NotFound />} />
           </Routes>
         </div>
       </div>
