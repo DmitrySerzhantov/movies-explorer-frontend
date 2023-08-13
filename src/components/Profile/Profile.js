@@ -3,20 +3,18 @@ import {logout, setUserProfile} from '../../utils/MainApi';
 import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 import {useNavigate} from 'react-router-dom';
 import Preloader from '../Preloader/Preloader';
+import {regularValidetEmail} from '../../utils/constans';
 
-function Profile() {
+function Profile({setFoundMovies}) {
   const currentUser = useContext(CurrentUserContext);
   const [editProfile, setEditProfile] = useState(true);
   const [emailErrMessage, setEmailErrMessage] = useState(true);
   const [nameErrMessage, setNameErrMessage] = useState(true);
   const [nameValid, setNameValid] = useState(false);
-  const [emailValid, setEmailValid] = useState(false);
+  const [emailValid, setEmailValid] = useState(null);
   const [validForm, setValidForm] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('');
-  const [formValue, setFormValue] = useState({
-    name: currentUser.name,
-    email: currentUser.email,
-  });
+  const [formValue, setFormValue] = useState({});
   const navigate = useNavigate();
 
   function handleChange(e) {
@@ -29,8 +27,9 @@ function Profile() {
         : setNameErrMessage(validationMessage);
       setNameValid(e.target.validity.valid);
     } else if (id === 'email') {
-      setEmailValid(e.target.validity.valid);
-      setEmailErrMessage(validationMessage);
+      !regularValidetEmail.test(value)
+        ? setEmailValid(false)
+        : setEmailValid(true);
     }
 
     setFormValue({
@@ -38,14 +37,23 @@ function Profile() {
       [name]: value,
     });
   }
+  useEffect(() => {
+    setFormValue({
+      name: currentUser.name,
+      email: currentUser.email,
+    });
+  }, [currentUser.email, currentUser.name]);
 
   useEffect(() => {
-    setValidForm(
-      nameValid &&
-        formValue.name !== currentUser.name &&
-        emailValid &&
-        formValue.email !== currentUser.email
-    );
+    !emailValid && emailValid !== null
+      ? setEmailErrMessage('Введите корректный email')
+      : setEmailErrMessage('');
+    (formValue.name !== currentUser.name ||
+      formValue.email !== currentUser.email) &&
+    emailValid &&
+    nameValid
+      ? setValidForm(true)
+      : setValidForm(false);
   }, [
     nameValid,
     emailValid,
@@ -58,7 +66,6 @@ function Profile() {
   function handleSubmit(e) {
     e.preventDefault();
     setSubmitMessage(<Preloader />);
-
     setUserProfile(formValue)
       .then((res) => {
         setFormValue({
@@ -66,10 +73,13 @@ function Profile() {
           email: res.email,
         });
         currentUser.name = res.name;
-        currentUser.email = res.email;
-        setEditProfile(true);
         setSubmitMessage('');
         setValidForm(false);
+        setSubmitMessage('Данные обновлены успешно.');
+        setTimeout(() => {
+          setSubmitMessage('');
+          setEditProfile(true);
+        }, 2500);
       })
       .catch((err) => {
         console.log(err);
@@ -80,7 +90,11 @@ function Profile() {
 
   return (
     <section className='profile'>
-      <form className='profile__form' onSubmit={handleSubmit}>
+      <form
+        className='profile__form'
+        onChange={handleChange}
+        onSubmit={handleSubmit}
+      >
         <h1 className='profile__title'>Привет, {currentUser.name}!</h1>
 
         <label className='profile__name'>
@@ -96,7 +110,6 @@ function Profile() {
             autoComplete='name'
             className='profile__input'
             value={formValue.name ?? ''}
-            onChange={handleChange}
           />
           Имя
           <span className='profile__error'>{nameErrMessage}</span>
@@ -112,7 +125,6 @@ function Profile() {
             autoComplete='email'
             className='profile__input register__input_border-style_none'
             value={formValue.email ?? ''}
-            onChange={handleChange}
           />
           <span className='profile__error'>{emailErrMessage}</span>
         </label>
@@ -133,6 +145,7 @@ function Profile() {
             logout()
               .then((res) => {
                 localStorage.clear();
+                setFoundMovies([]);
                 navigate('/');
               })
               .catch((err) => {

@@ -1,9 +1,8 @@
 import SearchForm from '../SearchForm/SearchForm';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import {useContext, useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {findMovies} from '../../utils/MoviesApi';
-import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 import Preloader from '../Preloader/Preloader';
 
 function Movies({
@@ -14,14 +13,19 @@ function Movies({
   getSavedMovies,
 }) {
   const [formValue, setFormValue] = useState('');
-  const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
-  const currentUser = useContext(CurrentUserContext);
+  const [isCheckboxChecked, setIsCheckboxChecked] = useState(null);
   const [isValidForm, setIsValidForm] = useState(null);
+  const [messageErrForm, setMessageErrForm] = useState('');
 
   function savedDataLocalStorage(movie) {
     const lastSearch = {movie, formValue, isCheckboxChecked};
     localStorage.setItem('lastSearch', JSON.stringify(lastSearch));
   }
+  useEffect(() => {
+    if (isCheckboxChecked !== null) {
+      handleFindMovies();
+    }
+  }, [isCheckboxChecked]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (
@@ -35,56 +39,73 @@ function Movies({
       setFoundMovies(JSON.parse(localStorage.getItem('lastSearch')).movie);
     }
     getSavedMovies();
-  }, [currentUser._id, setArrSavedMovies, setFoundMovies, getSavedMovies]);
+  }, [setFoundMovies, getSavedMovies]);
 
   function handleFindMovies() {
-    findMovies()
-      .then((res) => {
-        const movie = res.filter((e) => {
-          return (
-            e.nameRU.toLowerCase().includes(formValue.toLowerCase()) ||
-            e.nameEN.toLowerCase().includes(formValue.toLowerCase())
+    if (isValidForm) {
+      setMessageErrForm(<Preloader />);
+      findMovies()
+        .then((res) => {
+          const movie = res.filter((e) => {
+            return (
+              e.nameRU.toLowerCase().includes(formValue.toLowerCase()) ||
+              e.nameEN.toLowerCase().includes(formValue.toLowerCase())
+            );
+          });
+
+          const shortFilm = movie.filter((e) => {
+            return e.duration <= 40;
+          });
+
+          isCheckboxChecked ? setFoundMovies(shortFilm) : setFoundMovies(movie);
+          isCheckboxChecked
+            ? savedDataLocalStorage(shortFilm)
+            : savedDataLocalStorage(movie);
+
+          handleSearchForm(movie);
+        })
+        .catch((err) => {
+          console.log(err);
+          setMessageErrForm(
+            'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'
           );
         });
-        const shortFilm = movie.filter((e) => {
-          return e.duration <= 40;
-        });
-
-        isCheckboxChecked ? setFoundMovies(shortFilm) : setFoundMovies(movie);
-
-        handleSearchForm(movie);
-        savedDataLocalStorage(movie);
-      })
-      .catch((err) => {
-        console.log(err);
-        setIsValidForm(
-          'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'
-        );
-      });
+    } else if (isValidForm !== null) {
+      setMessageErrForm('Нужно ввести ключевое слово');
+    }
   }
 
   function handleSearchForm(movie) {
     if (movie.length === 0) {
-      setIsValidForm('Ничего не найдено');
+      setMessageErrForm('Ничего не найдено');
     } else {
-      setIsValidForm('');
+      setMessageErrForm('');
     }
   }
+
+  const handleChange = (e) => {
+    if (e.target.value.length > 0) {
+      setIsValidForm(true);
+      setMessageErrForm('');
+    } else {
+      setMessageErrForm('Нужно ввести ключевое слово');
+      setIsValidForm(false);
+    }
+    setFormValue(e.target.value);
+  };
+
   function handleSubmit(e) {
     e.preventDefault();
-    setIsValidForm(<Preloader />);
+    handleFindMovies();
   }
+
   return (
     <main className='movies'>
       <div className='movies__container'>
         <SearchForm
-          handleFindMovies={handleFindMovies}
-          setFoundMovies={setFoundMovies}
-          setIsValidForm={setIsValidForm}
-          findMovies={findMovies}
+          handleChange={handleChange}
           formValue={formValue}
           setFormValue={setFormValue}
-          savedDataLocalStorage={savedDataLocalStorage}
           handleSubmit={handleSubmit}
         ></SearchForm>
         <FilterCheckbox
@@ -92,7 +113,7 @@ function Movies({
           isCheckboxChecked={isCheckboxChecked}
         ></FilterCheckbox>
         <MoviesCardList
-          isValidForm={isValidForm}
+          messageErrForm={messageErrForm}
           foundMovies={foundMovies}
           arrSavedMovies={arrSavedMovies}
           setArrSavedMovies={setArrSavedMovies}

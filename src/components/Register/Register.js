@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
+import {regularValidetEmail} from '../../utils/constans';
 
 function Register({handleRegister}) {
   const navigate = useNavigate();
@@ -7,7 +8,7 @@ function Register({handleRegister}) {
   const [emailErrMessage, setEmailErrMessage] = useState('');
   const [passwordErrMessage, setPasswordErrMessage] = useState('');
   const [nameValid, setNameValid] = useState(false);
-  const [emailValid, setEmailValid] = useState(false);
+  const [emailValid, setEmailValid] = useState(null);
   const [passwordValid, setpasswordValid] = useState(false);
   const [validForm, setValidForm] = useState(false);
 
@@ -28,8 +29,9 @@ function Register({handleRegister}) {
         : setNameErrMessage(validationMessage);
       setNameValid(e.target.validity.valid);
     } else if (id === 'email') {
-      setEmailValid(e.target.validity.valid);
-      setEmailErrMessage(validationMessage);
+      !regularValidetEmail.test(value)
+        ? setEmailValid(false)
+        : setEmailValid(true);
     } else if (id === 'password') {
       setpasswordValid(e.target.validity.valid);
       setPasswordErrMessage(validationMessage);
@@ -41,6 +43,9 @@ function Register({handleRegister}) {
   };
 
   useEffect(() => {
+    !emailValid && emailValid !== null
+      ? setEmailErrMessage('Введите корректный email')
+      : setEmailErrMessage('');
     setValidForm(nameValid && emailValid && passwordValid);
   }, [nameValid, emailValid, passwordValid]);
 

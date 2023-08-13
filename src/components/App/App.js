@@ -103,6 +103,7 @@ function App() {
                   tokenCheck={tokenCheck}
                   loggedIn={loggedIn}
                   element={Profile}
+                  setFoundMovies={setFoundMovies}
                 />
               }
             />

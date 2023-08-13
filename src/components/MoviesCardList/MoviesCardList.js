@@ -3,7 +3,7 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import {useEffect, useState} from 'react';
 
 function MoviesCardList({
-  isValidForm,
+  messageErrForm,
   foundMovies,
   arrSavedMovies,
   setArrSavedMovies,
@@ -41,7 +41,7 @@ function MoviesCardList({
   };
   return (
     <section className='movies-card'>
-      <span className='movies-card__list-span'>{isValidForm}</span>
+      <span className='movies-card__list-span'>{messageErrForm}</span>
       <ul className='movies-card__list'>
         {foundMovies !== undefined
           ? foundMovies.map((movie, i) => {
@@ -49,7 +49,7 @@ function MoviesCardList({
               if (i < numberOfCards) {
                 return (item = (
                   <MoviesCard
-                    key={i}
+                    key={movie.id || movie._id}
                     setArrSavedMovies={setArrSavedMovies}
                     arrSavedMovies={arrSavedMovies}
                     movie={movie}

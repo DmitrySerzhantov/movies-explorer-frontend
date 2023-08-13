@@ -14,6 +14,7 @@ function MoviesCard({movie, arrSavedMovies, setArrSavedMovies}) {
   const min = movie.duration % 60;
   const hr = (movie.duration - min) / 60;
   const [styleButtton, setStyleButtton] = useState('card__button_style_save');
+
   useEffect(() => {
     setSrcImage(`${BASE_URL_BEATFILM_MOVIES}${movie.image.url}`);
     if (location.pathname === '/saved-movies') {
@@ -26,7 +27,7 @@ function MoviesCard({movie, arrSavedMovies, setArrSavedMovies}) {
       setIdMovie(movieSaved._id);
     }
     checkIsSavedMovie();
-  }, [arrSavedMovies]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [arrSavedMovies, isSavedMovie, movie._id, movie.image, movieSaved._id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   function checkIsSavedMovie() {
     arrSavedMovies.map((item) => {
@@ -96,14 +97,7 @@ function MoviesCard({movie, arrSavedMovies, setArrSavedMovies}) {
         />
       </div>
       <Link target='_blank' to={movie.trailerLink}>
-        <img
-          className='card__poster'
-          alt='постер фильма'
-          onClick={() => {
-            console.log(movie.trailerLink);
-          }}
-          src={srcImage}
-        ></img>
+        <img className='card__poster' alt='постер фильма' src={srcImage}></img>
       </Link>
     </section>
   );

@@ -1,19 +1,15 @@
-import {useState} from 'react';
 import searchIcon from '../../images/logo/icon-find.svg';
 
 function SearchForm({
   formValue,
   setFormValue,
-  setIsValidForm,
-  handleFindMovies,
-  handleSubmit
+  handleSubmit,
+  handleChange,
 }) {
-  const [validSearchForm, setValidSearchForm] = useState(false);
-
-
   return (
     <section className='search'>
       <form
+        noValidate
         onChange={(v) => {
           setFormValue(v.target.value);
         }}
@@ -27,26 +23,17 @@ function SearchForm({
         />
         <input
           required
-          pattern='\S(.*\S)?'
-          title='Текст поиска'
+          name='text'
+          autoComplete='name'
+          id='text'
           type='text'
           minLength={1}
           className='search__input'
           placeholder='Фильм'
-          onChange={(e) => {
-            setValidSearchForm(e.target.validity.valid);
-            setFormValue(e.target.value);
-          }}
+          onChange={(e) => handleChange(e)}
           value={formValue ?? ''}
         />
-        <button
-          onClick={(e) => {
-            validSearchForm
-              ? handleFindMovies()
-              : setIsValidForm('Нужно ввести ключевое слово');
-          }}
-          className='search__find-button'
-        />
+        <button className='search__find-button' />
       </form>
     </section>
   );

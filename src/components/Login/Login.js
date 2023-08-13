@@ -1,10 +1,11 @@
 import {useEffect, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
+import {regularValidetEmail} from '../../utils/constans';
 function Login({onLogin}) {
   const navigate = useNavigate();
   const [emailErrMessage, setEmailErrMessage] = useState('');
   const [passwordErrMessage, setPasswordErrMessage] = useState('');
-  const [emailValid, setEmailValid] = useState(false);
+  const [emailValid, setEmailValid] = useState(null);
   const [passwordValid, setpasswordValid] = useState(false);
   const [validForm, setValidForm] = useState(false);
   const [formValue, setFormValue] = useState({
@@ -16,12 +17,14 @@ function Login({onLogin}) {
   const handleChange = (e) => {
     const {name, value, validationMessage, id} = e.target;
     if (id === 'email') {
-      setEmailValid(e.target.validity.valid);
-      setEmailErrMessage(validationMessage);
+      !regularValidetEmail.test(value)
+        ? setEmailValid(false)
+        : setEmailValid(true);
     } else if (id === 'password') {
       setpasswordValid(e.target.validity.valid);
       setPasswordErrMessage(validationMessage);
     }
+
     setFormValue({
       ...formValue,
       [name]: value,
@@ -29,6 +32,9 @@ function Login({onLogin}) {
   };
 
   useEffect(() => {
+    !emailValid && emailValid !== null
+      ? setEmailErrMessage('Введите корректный email')
+      : setEmailErrMessage('');
     setValidForm(emailValid && passwordValid);
   }, [emailValid, passwordValid]);
 

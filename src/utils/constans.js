@@ -17,3 +17,5 @@ export const portfolioItems = [
     link: 'https://github.com/DmitrySerzhantov/react-mesto-api-full-gha',
   },
 ];
+export const regularValidetEmail =
+  /^[A-Za-z0-9._%+-]+@([A-Za-z0-9-]+\.)+([A-Za-z0-9]{2,4}|museum)$/;
