@@ -18,7 +18,8 @@ function App() {
   const loggedIn = localStorage.getItem('LoggedIn');
   const [currentUser, setCurrentUser] = useState({});
   const [foundMovies, setFoundMovies] = useState([]);
-  const [arrSavedMovies, setArrSavedMovies] = useState([]);
+
+  const [arrSavedMovies, setArrSavedMovies] = useState();
   let location = useLocation();
   const navigate = useNavigate();
 
@@ -74,6 +75,7 @@ function App() {
         console.log(err);
       });
   }, [currentUser._id]);
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='App '>

@@ -20,6 +20,7 @@ function Movies({
   function savedDataLocalStorage(movie) {
     const lastSearch = {movie, formValue, isCheckboxChecked};
     localStorage.setItem('lastSearch', JSON.stringify(lastSearch));
+  
   }
   useEffect(() => {
     if (isCheckboxChecked !== null) {

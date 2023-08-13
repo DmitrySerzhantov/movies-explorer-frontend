@@ -4,7 +4,6 @@ function FilterCheckbox({isCheckboxChecked, setIsCheckboxChecked}) {
       <input
         onChange={(e) => {
           setIsCheckboxChecked(e.currentTarget.checked);
-          console.log(e.currentTarget.checked);
         }}
         className='filter__checkbox'
         id='checkbox'

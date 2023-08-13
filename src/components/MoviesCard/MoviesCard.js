@@ -5,7 +5,6 @@ import {deleteMovie, savedMovie} from '../../utils/MainApi';
 
 function MoviesCard({movie, arrSavedMovies, setArrSavedMovies}) {
   const [movieSaved, setMovieSaved] = useState({});
-
   const [isSavedMovie, setIsSavedMovie] = useState(false);
   const [srcImage, setSrcImage] = useState('');
   const [idMovie, setIdMovie] = useState('');

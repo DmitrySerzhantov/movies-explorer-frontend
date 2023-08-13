@@ -1,27 +1,24 @@
 import SearchForm from '../SearchForm/SearchForm';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import {useCallback, useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 
 function SavedMovies({arrSavedMovies, setArrSavedMovies, getSavedMovies}) {
   const [formValue, setFormValue] = useState('');
   const [isValidForm, setIsValidForm] = useState(null);
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
   const [messageErrForm, setMessageErrForm] = useState('');
+  const [foundMovies, setFoundMovies] = useState([]);
 
-  useEffect(() => {
-    getSavedMovies();
-  }, [getSavedMovies]);
-  const handleSearchForm = useCallback((movie) => {
+  const handleSearchForm = (movie) => {
     if (movie.length === 0) {
-      setIsValidForm('Ничего не найдено');
-      getSavedMovies();
+      setMessageErrForm('Ничего не найдено');
     } else {
-      setIsValidForm('');
+      setMessageErrForm('');
     }
-  });
-  
-  const handleFindMovies = useCallback(() => {
+  };
+
+  const handleFindMovies = () => {
     const movie = arrSavedMovies.filter((e) => {
       return (
         e.nameRU.toLowerCase().includes(formValue.toLowerCase()) ||
@@ -33,19 +30,15 @@ function SavedMovies({arrSavedMovies, setArrSavedMovies, getSavedMovies}) {
       return e.duration <= 40;
     });
 
-    isCheckboxChecked ? setArrSavedMovies(shortFilm) : setArrSavedMovies(movie);
-
-    handleSearchForm(movie);
-  }, [
-    arrSavedMovies,
-    formValue,
-    handleSearchForm,
-    isCheckboxChecked,
-    setArrSavedMovies,
-  ]);
+    isCheckboxChecked ? setFoundMovies(shortFilm) : setFoundMovies(movie);
+    isCheckboxChecked ? handleSearchForm(shortFilm) : handleSearchForm(movie);
+    getSavedMovies();
+  };
 
   useEffect(() => {
-    handleFindMovies();
+    if (arrSavedMovies !== undefined) {
+      handleFindMovies();
+    }
   }, [isCheckboxChecked]);
 
   const handleChange = (e) => {
@@ -83,7 +76,7 @@ function SavedMovies({arrSavedMovies, setArrSavedMovies, getSavedMovies}) {
         />
         <MoviesCardList
           messageErrForm={messageErrForm}
-          foundMovies={arrSavedMovies}
+          foundMovies={foundMovies}
           arrSavedMovies={arrSavedMovies}
           setArrSavedMovies={setArrSavedMovies}
         />
