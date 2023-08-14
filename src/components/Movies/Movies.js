@@ -16,17 +16,12 @@ function Movies({
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(undefined);
   const [isValidForm, setIsValidForm] = useState(undefined);
   const [messageErrForm, setMessageErrForm] = useState('');
+  const [filteredMovies, setFilteredMovies] = useState([]);
 
   function savedDataLocalStorage(movie) {
-    const lastSearch = {movie, formValue, isCheckboxChecked};
+    const lastSearch = {movie, formValue, isCheckboxChecked, isValidForm};
     localStorage.setItem('lastSearch', JSON.stringify(lastSearch));
   }
-
-  useEffect(() => {
-    if (isCheckboxChecked !== undefined) {
-      handleFindMovies();
-    }
-  }, [isCheckboxChecked]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (
@@ -37,30 +32,49 @@ function Movies({
       setIsCheckboxChecked(
         JSON.parse(localStorage.getItem('lastSearch')).isCheckboxChecked
       );
-      setFoundMovies(JSON.parse(localStorage.getItem('lastSearch')).movie);
+      setFilteredMovies(JSON.parse(localStorage.getItem('lastSearch')).movie);
+      setIsValidForm(
+        JSON.parse(localStorage.getItem('lastSearch')).isValidForm
+      );
     }
     getSavedMovies();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   function handleFindMovies() {
-    if (isValidForm) {
-      setMessageErrForm(<Preloader />);
-      findMovies()
-        .then((movies) => {
-          filterMovies(movies);
-        })
-        .catch((err) => {
-          console.log(err);
-          setMessageErrForm(
-            'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'
-          );
-        });
-    } else if (isValidForm !== undefined) {
-      setMessageErrForm('Нужно ввести ключевое слово');
-    }
+    findMovies()
+      .then((movies) => {
+        setFoundMovies(movies);
+        handleSearchForm(movies);
+        filterMovies(movies);
+      })
+      .catch((err) => {
+        console.log(err);
+        setMessageErrForm(
+          'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'
+        );
+      });
   }
 
-  const filterMovies = (movies) => {
+  const saerchMovies = () => {
+    if (isValidForm && foundMovies.length === 0) {
+      handleFindMovies();
+    } else {
+      filterMovies(foundMovies);
+    }
+  };
+
+  const handleFilterCheckbox = (e) => {
+    setIsCheckboxChecked(e.target.checked);
+
+    if (filteredMovies.length !== 0) {
+      filterMovies(filteredMovies, e.target.checked);
+    }
+    if (true) {
+      filterMovies(foundMovies, e.target.checked);
+    }
+  };
+
+  const filterMovies = (movies, isCheckboxChecked) => {
     const movie = movies.filter((e) => {
       return (
         e.nameRU.toLowerCase().includes(formValue.toLowerCase()) ||
@@ -72,12 +86,15 @@ function Movies({
       return e.duration <= 40;
     });
 
-    isCheckboxChecked ? setFoundMovies(shortFilm) : setFoundMovies(movie);
+    isCheckboxChecked ? setFilteredMovies(shortFilm) : setFilteredMovies(movie);
     isCheckboxChecked
       ? savedDataLocalStorage(shortFilm)
       : savedDataLocalStorage(movie);
 
     handleSearchForm(movie);
+    if (isCheckboxChecked && shortFilm.length === 0) {
+      handleSearchForm(shortFilm);
+    }
   };
 
   function handleSearchForm(movie) {
@@ -101,7 +118,11 @@ function Movies({
 
   function handleSubmit(e) {
     e.preventDefault();
-    handleFindMovies();
+    if (isValidForm) {
+      setMessageErrForm(<Preloader />);
+      saerchMovies();
+    } else {
+    }
   }
 
   return (
@@ -114,12 +135,13 @@ function Movies({
           handleSubmit={handleSubmit}
         ></SearchForm>
         <FilterCheckbox
+          handleFilterCheckbox={handleFilterCheckbox}
           setIsCheckboxChecked={setIsCheckboxChecked}
           isCheckboxChecked={isCheckboxChecked}
         ></FilterCheckbox>
         <MoviesCardList
           messageErrForm={messageErrForm}
-          foundMovies={foundMovies}
+          foundMovies={filteredMovies}
           arrSavedMovies={arrSavedMovies}
           setArrSavedMovies={setArrSavedMovies}
         ></MoviesCardList>

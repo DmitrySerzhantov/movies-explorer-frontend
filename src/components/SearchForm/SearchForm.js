@@ -1,11 +1,6 @@
 import searchIcon from '../../images/logo/icon-find.svg';
 
-function SearchForm({
-  formValue,
-  setFormValue,
-  handleSubmit,
-  handleChange,
-}) {
+function SearchForm({formValue, setFormValue, handleSubmit, handleChange}) {
   return (
     <section className='search'>
       <form

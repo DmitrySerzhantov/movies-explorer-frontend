@@ -1,10 +1,15 @@
-function FilterCheckbox({isCheckboxChecked, setIsCheckboxChecked}) {
+function FilterCheckbox({
+  isCheckboxChecked,
+  setIsCheckboxChecked,
+  handleFilterCheckbox,
+}) {
   return (
     <section className='filter'>
       <input
         onChange={(e) => {
           setIsCheckboxChecked(e.currentTarget.checked);
         }}
+        onClick={handleFilterCheckbox}
         className='filter__checkbox'
         id='checkbox'
         type='checkbox'

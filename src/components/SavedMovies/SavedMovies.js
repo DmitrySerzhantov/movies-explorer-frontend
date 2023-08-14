@@ -2,13 +2,14 @@ import SearchForm from '../SearchForm/SearchForm';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import {useEffect, useState} from 'react';
+import Preloader from '../Preloader/Preloader';
 
-function SavedMovies({arrSavedMovies, setArrSavedMovies, getSavedMovies}) {
+function SavedMovies({arrSavedMovies, setArrSavedMovies}) {
   const [formValue, setFormValue] = useState('');
   const [isValidForm, setIsValidForm] = useState(null);
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
   const [messageErrForm, setMessageErrForm] = useState('');
-  const [foundMovies, setFoundMovies] = useState(arrSavedMovies);
+  const [filteredMovies, setFilteredMovies] = useState(arrSavedMovies);
 
   const handleSearchForm = (movie) => {
     if (movie.length === 0) {
@@ -18,8 +19,21 @@ function SavedMovies({arrSavedMovies, setArrSavedMovies, getSavedMovies}) {
     }
   };
 
-  const handleFindMovies = () => {
-    const movie = arrSavedMovies.filter((e) => {
+  function savedDataLocalStorage(movie) {
+    const lastSearchSavedMovies = {
+      movie,
+      formValue,
+      isCheckboxChecked,
+      isValidForm,
+    };
+    localStorage.setItem(
+      'lastSearchSavedMovies',
+      JSON.stringify(lastSearchSavedMovies)
+    );
+  }
+
+  const filterMovies = (movies, isCheckboxChecked) => {
+    const movie = movies.filter((e) => {
       return (
         e.nameRU.toLowerCase().includes(formValue.toLowerCase()) ||
         e.nameEN.toLowerCase().includes(formValue.toLowerCase())
@@ -30,18 +44,54 @@ function SavedMovies({arrSavedMovies, setArrSavedMovies, getSavedMovies}) {
       return e.duration <= 40;
     });
 
-    isCheckboxChecked ? setFoundMovies(shortFilm) : setFoundMovies(movie);
-    isCheckboxChecked ? handleSearchForm(shortFilm) : handleSearchForm(movie);
+    handleSearchForm(movie);
+    if (isCheckboxChecked && shortFilm.length === 0) {
+      handleSearchForm(shortFilm);
+    }
+
+    isCheckboxChecked ? setFilteredMovies(shortFilm) : setFilteredMovies(movie);
+    isCheckboxChecked
+      ? savedDataLocalStorage(shortFilm)
+      : savedDataLocalStorage(movie);
+  };
+
+  const saerchMovies = () => {
+    if (isValidForm) {
+      filterMovies(arrSavedMovies, isCheckboxChecked);
+    }
+  };
+
+  const handleFilterCheckbox = (e) => {
+    setIsCheckboxChecked(e.target.checked);
+    if (filteredMovies.length !== 0) {
+      filterMovies(filteredMovies, e.target.checked);
+    }
+    if (true) {
+      filterMovies(arrSavedMovies, e.target.checked);
+    }
   };
 
   useEffect(() => {
-    getSavedMovies();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isCheckboxChecked]);
+    if (
+      JSON.parse(localStorage.getItem('lastSearchSavedMovies')) !== null &&
+      localStorage.getItem('LoggedIn')
+    ) {
+      setFormValue(
+        JSON.parse(localStorage.getItem('lastSearchSavedMovies')).formValue
+      );
+      setIsCheckboxChecked(
+        JSON.parse(localStorage.getItem('lastSearchSavedMovies'))
+          .isCheckboxChecked
+      );
+      setFilteredMovies(
+        JSON.parse(localStorage.getItem('lastSearchSavedMovies')).movie
+      );
+      setIsValidForm(
+        JSON.parse(localStorage.getItem('lastSearchSavedMovies')).isValidForm
+      );
+    }
+  }, []);
 
-  useEffect(() => {
-    setFoundMovies(arrSavedMovies);
-  }, [arrSavedMovies]);
   const handleChange = (e) => {
     if (e.target.value.length > 0) {
       setIsValidForm(true);
@@ -53,10 +103,12 @@ function SavedMovies({arrSavedMovies, setArrSavedMovies, getSavedMovies}) {
 
     setFormValue(e.target.value);
   };
+
   function handleSubmit(e) {
     e.preventDefault();
     if (isValidForm) {
-      handleFindMovies();
+      setMessageErrForm(<Preloader />);
+      saerchMovies();
     } else {
       setMessageErrForm('Нужно ввести ключевое слово');
     }
@@ -71,12 +123,13 @@ function SavedMovies({arrSavedMovies, setArrSavedMovies, getSavedMovies}) {
           handleSubmit={handleSubmit}
         />
         <FilterCheckbox
+          handleFilterCheckbox={handleFilterCheckbox}
           setIsCheckboxChecked={setIsCheckboxChecked}
           isCheckboxChecked={isCheckboxChecked}
         />
         <MoviesCardList
           messageErrForm={messageErrForm}
-          foundMovies={foundMovies}
+          foundMovies={filteredMovies}
           arrSavedMovies={arrSavedMovies}
           setArrSavedMovies={setArrSavedMovies}
         />
