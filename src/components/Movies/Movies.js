@@ -13,17 +13,17 @@ function Movies({
   getSavedMovies,
 }) {
   const [formValue, setFormValue] = useState('');
-  const [isCheckboxChecked, setIsCheckboxChecked] = useState(null);
-  const [isValidForm, setIsValidForm] = useState(null);
+  const [isCheckboxChecked, setIsCheckboxChecked] = useState(undefined);
+  const [isValidForm, setIsValidForm] = useState(undefined);
   const [messageErrForm, setMessageErrForm] = useState('');
 
   function savedDataLocalStorage(movie) {
     const lastSearch = {movie, formValue, isCheckboxChecked};
     localStorage.setItem('lastSearch', JSON.stringify(lastSearch));
-  
   }
+
   useEffect(() => {
-    if (isCheckboxChecked !== null) {
+    if (isCheckboxChecked !== undefined) {
       handleFindMovies();
     }
   }, [isCheckboxChecked]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -40,30 +40,14 @@ function Movies({
       setFoundMovies(JSON.parse(localStorage.getItem('lastSearch')).movie);
     }
     getSavedMovies();
-  }, [setFoundMovies, getSavedMovies]);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   function handleFindMovies() {
     if (isValidForm) {
       setMessageErrForm(<Preloader />);
       findMovies()
-        .then((res) => {
-          const movie = res.filter((e) => {
-            return (
-              e.nameRU.toLowerCase().includes(formValue.toLowerCase()) ||
-              e.nameEN.toLowerCase().includes(formValue.toLowerCase())
-            );
-          });
-
-          const shortFilm = movie.filter((e) => {
-            return e.duration <= 40;
-          });
-
-          isCheckboxChecked ? setFoundMovies(shortFilm) : setFoundMovies(movie);
-          isCheckboxChecked
-            ? savedDataLocalStorage(shortFilm)
-            : savedDataLocalStorage(movie);
-
-          handleSearchForm(movie);
+        .then((movies) => {
+          filterMovies(movies);
         })
         .catch((err) => {
           console.log(err);
@@ -71,10 +55,30 @@ function Movies({
             'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'
           );
         });
-    } else if (isValidForm !== null) {
+    } else if (isValidForm !== undefined) {
       setMessageErrForm('Нужно ввести ключевое слово');
     }
   }
+
+  const filterMovies = (movies) => {
+    const movie = movies.filter((e) => {
+      return (
+        e.nameRU.toLowerCase().includes(formValue.toLowerCase()) ||
+        e.nameEN.toLowerCase().includes(formValue.toLowerCase())
+      );
+    });
+
+    const shortFilm = movie.filter((e) => {
+      return e.duration <= 40;
+    });
+
+    isCheckboxChecked ? setFoundMovies(shortFilm) : setFoundMovies(movie);
+    isCheckboxChecked
+      ? savedDataLocalStorage(shortFilm)
+      : savedDataLocalStorage(movie);
+
+    handleSearchForm(movie);
+  };
 
   function handleSearchForm(movie) {
     if (movie.length === 0) {

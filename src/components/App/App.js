@@ -13,6 +13,7 @@ import {checkToken, getMovies, login, register} from '../../utils/MainApi';
 import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 import {useCallback, useState} from 'react';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import ProtectedRouteRegister from '../ProtectedRouteRegister/ProtectedRouteRegister';
 
 function App() {
   const loggedIn = localStorage.getItem('LoggedIn');
@@ -47,16 +48,14 @@ function App() {
       .catch((err) => {
         console.log(err);
         localStorage.clear();
-        navigate('/');
       });
-  }, [navigate]);
+  }, []);
 
   function handleLogin(password, email) {
     login(password, email)
       .then((user) => {
         if (user) {
           localStorage.setItem('LoggedIn', true);
-
           setCurrentUser(user.data);
           navigate('/movies');
         }
@@ -66,15 +65,19 @@ function App() {
       });
   }
 
-  const getSavedMovies = useCallback(() => {
+  const getSavedMovies = () => {
     getMovies(currentUser._id)
       .then((res) => {
         setArrSavedMovies(res);
       })
       .catch((err) => {
         console.log(err);
+        if (err === 'Ошибка: 401') {
+          localStorage.clear();
+          navigate('/');
+        }
       });
-  }, [currentUser._id]);
+  };
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -124,11 +127,28 @@ function App() {
                 />
               }
             />
+            <Route
+              path='/signin'
+              element={
+                <ProtectedRouteRegister
+                  tokenCheck={tokenCheck}
+                  loggedIn={loggedIn}
+                  element={Login}
+                  onLogin={handleLogin}
+                />
+              }
+            />
 
-            <Route path='/signin' element={<Login onLogin={handleLogin} />} />
             <Route
               path='/signup'
-              element={<Register handleRegister={handleRegister} />}
+              element={
+                <ProtectedRouteRegister
+                  tokenCheck={tokenCheck}
+                  loggedIn={loggedIn}
+                  element={Register}
+                  handleRegister={handleRegister}
+                />
+              }
             />
             <Route path='*' element={<NotFound />} />
           </Routes>

@@ -53,7 +53,7 @@ export const register = (name, password, email) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': `${BASE_URL}`
+      'Access-Control-Allow-Origin': `${BASE_URL}`,
     },
     credentials: 'include',
     body: JSON.stringify({name, password, email}),

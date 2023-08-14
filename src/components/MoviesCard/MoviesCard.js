@@ -29,14 +29,16 @@ function MoviesCard({movie, arrSavedMovies, setArrSavedMovies}) {
   }, [arrSavedMovies, isSavedMovie, movie._id, movie.image, movieSaved._id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   function checkIsSavedMovie() {
-    arrSavedMovies.map((item) => {
-      if (item.movieId === movie.id) {
-        setIsSavedMovie(true);
-        setMovieSaved(item);
-      }
+    if (arrSavedMovies !== undefined) {
+      arrSavedMovies.map((item) => {
+        if (item.movieId === movie.id) {
+          setIsSavedMovie(true);
+          setMovieSaved(item);
+        }
 
-      return item;
-    });
+        return item;
+      });
+    }
   }
 
   function updateArrSavedMovies(element) {

@@ -8,7 +8,7 @@ function SavedMovies({arrSavedMovies, setArrSavedMovies, getSavedMovies}) {
   const [isValidForm, setIsValidForm] = useState(null);
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
   const [messageErrForm, setMessageErrForm] = useState('');
-  const [foundMovies, setFoundMovies] = useState([]);
+  const [foundMovies, setFoundMovies] = useState(arrSavedMovies);
 
   const handleSearchForm = (movie) => {
     if (movie.length === 0) {
@@ -32,15 +32,16 @@ function SavedMovies({arrSavedMovies, setArrSavedMovies, getSavedMovies}) {
 
     isCheckboxChecked ? setFoundMovies(shortFilm) : setFoundMovies(movie);
     isCheckboxChecked ? handleSearchForm(shortFilm) : handleSearchForm(movie);
-    getSavedMovies();
   };
 
   useEffect(() => {
-    if (arrSavedMovies !== undefined) {
-      handleFindMovies();
-    }
+    getSavedMovies();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isCheckboxChecked]);
 
+  useEffect(() => {
+    setFoundMovies(arrSavedMovies);
+  }, [arrSavedMovies]);
   const handleChange = (e) => {
     if (e.target.value.length > 0) {
       setIsValidForm(true);
@@ -52,7 +53,6 @@ function SavedMovies({arrSavedMovies, setArrSavedMovies, getSavedMovies}) {
 
     setFormValue(e.target.value);
   };
-
   function handleSubmit(e) {
     e.preventDefault();
     if (isValidForm) {

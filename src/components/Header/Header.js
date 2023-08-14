@@ -37,14 +37,15 @@ function Header({loggedIn}) {
           <></>
         ) : (
           <>
-            <Link className='header__button-signup' to='/signup'>
+            <button className='header__button-signup' to='/signup'>
               Регистрация
-            </Link>
+            </button>
             <Link className='header__button-signin' to='/signin'>
               Войти
             </Link>
           </>
         )}
+
         {loggedIn ? (
           <button
             type='button'

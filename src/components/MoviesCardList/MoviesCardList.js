@@ -39,7 +39,7 @@ function MoviesCardList({
     clearTimeout(doit);
     doit = setTimeout(setWidthWindow(e.currentTarget.innerWidth), 100);
   };
-  
+
   return (
     <section className='movies-card'>
       <span className='movies-card__list-span'>{messageErrForm}</span>

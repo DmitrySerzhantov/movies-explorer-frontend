@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {Link, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {regularValidetEmail} from '../../utils/constans';
 function Login({onLogin}) {
   const navigate = useNavigate();
@@ -42,6 +42,7 @@ function Login({onLogin}) {
     e.preventDefault();
     onLogin(formValue.password, formValue.email);
   };
+
   return (
     <section className='register'>
       <button className='register__button-home' onClick={() => navigate('/')} />
@@ -86,9 +87,12 @@ function Login({onLogin}) {
       </form>
       <p className='register__footer'>
         Ещё не зарегистрированы?{' '}
-        <Link className='register__footer-button' to='/signup'>
+        <button
+          className='register__footer-button'
+          onClick={() => navigate('/signup')}
+        >
           Регистрация
-        </Link>
+        </button>
       </p>
     </section>
   );
