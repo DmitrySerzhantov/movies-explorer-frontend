@@ -13,72 +13,91 @@ function Movies({
   getSavedMovies,
 }) {
   const [formValue, setFormValue] = useState('');
-  const [isCheckboxChecked, setIsCheckboxChecked] = useState(undefined);
-  const [isValidForm, setIsValidForm] = useState(undefined);
+  const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
+  const [isValidForm, setIsValidForm] = useState(false);
   const [messageErrForm, setMessageErrForm] = useState('');
   const [filteredMovies, setFilteredMovies] = useState([]);
-
-  function savedDataLocalStorage(movie) {
-    const lastSearch = {movie, formValue, isCheckboxChecked, isValidForm};
-    localStorage.setItem('lastSearch', JSON.stringify(lastSearch));
-  }
+  const lastSearch = JSON.parse(localStorage.getItem('lastSearch'));
 
   useEffect(() => {
-    if (
-      JSON.parse(localStorage.getItem('lastSearch')) !== null &&
-      localStorage.getItem('LoggedIn')
-    ) {
-      setFormValue(JSON.parse(localStorage.getItem('lastSearch')).formValue);
-      setIsCheckboxChecked(
-        JSON.parse(localStorage.getItem('lastSearch')).isCheckboxChecked
-      );
-      setFilteredMovies(JSON.parse(localStorage.getItem('lastSearch')).movie);
-      setIsValidForm(
-        JSON.parse(localStorage.getItem('lastSearch')).isValidForm
-      );
-    }
+    loadingData();
     getSavedMovies();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  function handleFindMovies() {
-    findMovies()
-      .then((movies) => {
-        setFoundMovies(movies);
-        handleSearchForm(movies);
-        filterMovies(movies);
-      })
-      .catch((err) => {
-        console.log(err);
-        setMessageErrForm(
-          'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'
-        );
-      });
+  function savedDataLocalStorage(
+    movie,
+    shortFilm,
+    isCheckboxChecked,
+    formValue,
+    isValidForm
+  ) {
+    const lastSearch = {
+      movie,
+      shortFilm,
+      isCheckboxChecked,
+      formValue,
+      isValidForm,
+    };
+    localStorage.setItem('lastSearch', JSON.stringify(lastSearch));
   }
 
-  const saerchMovies = () => {
-    if (isValidForm && foundMovies.length === 0) {
-      handleFindMovies();
-    } else {
-      filterMovies(foundMovies);
+  const loadingData = () => {
+    if (lastSearch !== null) {
+      filterMovies(
+        lastSearch.movie,
+
+        lastSearch.isCheckboxChecked,
+        lastSearch.formValue,
+        lastSearch.isValidForm
+      );
     }
   };
+
+  function handleFindMovies() {
+    if (foundMovies.length <= 0) {
+      findMovies()
+        .then((movies) => {
+          setFoundMovies(movies);
+          handleSearchForm(movies);
+          filterMovies(movies, isCheckboxChecked, formValue, isValidForm);
+        })
+        .catch((err) => {
+          console.log(err);
+          setMessageErrForm(
+            'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'
+          );
+        });
+    } else {
+      filterMovies(foundMovies, isCheckboxChecked, formValue, isValidForm);
+    }
+  }
 
   const handleFilterCheckbox = (e) => {
     setIsCheckboxChecked(e.target.checked);
+    e.target.checked
+      ? handleSearchForm(lastSearch.shortFilm)
+      : handleSearchForm(lastSearch.movie);
 
-    if (filteredMovies.length !== 0) {
-      filterMovies(filteredMovies, e.target.checked);
-    }
-    if (true) {
-      filterMovies(foundMovies, e.target.checked);
+    if (lastSearch.movie.length > 0) {
+      isCheckboxChecked
+        ? setFilteredMovies(lastSearch.movie)
+        : setFilteredMovies(lastSearch.shortFilm);
+      savedDataLocalStorage(
+        lastSearch.movie,
+        lastSearch.shortFilm,
+        e.target.checked,
+        formValue,
+        isValidForm
+      );
     }
   };
 
-  const filterMovies = (movies, isCheckboxChecked) => {
+  const filterMovies = (movies, isChecked, valueForm, isValidForm) => {
+    setMessageErrForm(<Preloader />);
     const movie = movies.filter((e) => {
       return (
-        e.nameRU.toLowerCase().includes(formValue.toLowerCase()) ||
-        e.nameEN.toLowerCase().includes(formValue.toLowerCase())
+        e.nameRU.toLowerCase().includes(valueForm.toLowerCase()) ||
+        e.nameEN.toLowerCase().includes(valueForm.toLowerCase())
       );
     });
 
@@ -86,15 +105,13 @@ function Movies({
       return e.duration <= 40;
     });
 
-    isCheckboxChecked ? setFilteredMovies(shortFilm) : setFilteredMovies(movie);
-    isCheckboxChecked
-      ? savedDataLocalStorage(shortFilm)
-      : savedDataLocalStorage(movie);
+    isChecked ? setFilteredMovies(shortFilm) : setFilteredMovies(movie);
 
-    handleSearchForm(movie);
-    if (isCheckboxChecked && shortFilm.length === 0) {
-      handleSearchForm(shortFilm);
-    }
+    setFormValue(valueForm);
+    setIsCheckboxChecked(isChecked);
+    setIsValidForm(isValidForm);
+    savedDataLocalStorage(movie, shortFilm, isChecked, valueForm, isValidForm);
+    isChecked ? handleSearchForm(shortFilm) : handleSearchForm(movie);
   };
 
   function handleSearchForm(movie) {
@@ -106,22 +123,33 @@ function Movies({
   }
 
   const handleChange = (e) => {
+    setFormValue(e.target.value);
     if (e.target.value.length > 0) {
       setIsValidForm(true);
       setMessageErrForm('');
+      setFormValue(e.target.value);
+    } else {
+      setIsValidForm(false);
+    }
+  };
+
+  const formValidation = (e) => {
+    if (e.target.text.value.length > 0) {
+      setIsValidForm(true);
+      setMessageErrForm('');
+      setFormValue(e.target.text.value);
     } else {
       setMessageErrForm('Нужно ввести ключевое слово');
       setIsValidForm(false);
     }
-    setFormValue(e.target.value);
   };
 
   function handleSubmit(e) {
     e.preventDefault();
+    formValidation(e);
     if (isValidForm) {
       setMessageErrForm(<Preloader />);
-      saerchMovies();
-    } else {
+      handleFindMovies();
     }
   }
 

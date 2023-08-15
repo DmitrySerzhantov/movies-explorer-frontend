@@ -19,7 +19,6 @@ function App() {
   const loggedIn = localStorage.getItem('LoggedIn');
   const [currentUser, setCurrentUser] = useState({});
   const [foundMovies, setFoundMovies] = useState([]);
-
   const [arrSavedMovies, setArrSavedMovies] = useState();
   let location = useLocation();
   const navigate = useNavigate();
@@ -85,6 +84,29 @@ function App() {
         <div className='App__wrapper'>
           <Header loggedIn={loggedIn} />
           <Routes>
+            <Route
+              path='/signin'
+              element={
+                <ProtectedRouteRegister
+                  tokenCheck={tokenCheck}
+                  loggedIn={loggedIn}
+                  element={Login}
+                  onLogin={handleLogin}
+                />
+              }
+            />
+
+            <Route
+              path='/signup'
+              element={
+                <ProtectedRouteRegister
+                  tokenCheck={tokenCheck}
+                  loggedIn={loggedIn}
+                  element={Register}
+                  handleRegister={handleRegister}
+                />
+              }
+            />
             <Route path='/' element={<Main />} />
             <Route
               path='/saved-movies'
@@ -127,29 +149,7 @@ function App() {
                 />
               }
             />
-            <Route
-              path='/signin'
-              element={
-                <ProtectedRouteRegister
-                  tokenCheck={tokenCheck}
-                  loggedIn={loggedIn}
-                  element={Login}
-                  onLogin={handleLogin}
-                />
-              }
-            />
 
-            <Route
-              path='/signup'
-              element={
-                <ProtectedRouteRegister
-                  tokenCheck={tokenCheck}
-                  loggedIn={loggedIn}
-                  element={Register}
-                  handleRegister={handleRegister}
-                />
-              }
-            />
             <Route path='*' element={<NotFound />} />
           </Routes>
           <Routes>

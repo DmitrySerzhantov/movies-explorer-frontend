@@ -1,7 +1,7 @@
 import SearchForm from '../SearchForm/SearchForm';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import Preloader from '../Preloader/Preloader';
 
 function SavedMovies({arrSavedMovies, setArrSavedMovies}) {
@@ -18,19 +18,6 @@ function SavedMovies({arrSavedMovies, setArrSavedMovies}) {
       setMessageErrForm('');
     }
   };
-
-  function savedDataLocalStorage(movie) {
-    const lastSearchSavedMovies = {
-      movie,
-      formValue,
-      isCheckboxChecked,
-      isValidForm,
-    };
-    localStorage.setItem(
-      'lastSearchSavedMovies',
-      JSON.stringify(lastSearchSavedMovies)
-    );
-  }
 
   const filterMovies = (movies, isCheckboxChecked) => {
     const movie = movies.filter((e) => {
@@ -50,9 +37,6 @@ function SavedMovies({arrSavedMovies, setArrSavedMovies}) {
     }
 
     isCheckboxChecked ? setFilteredMovies(shortFilm) : setFilteredMovies(movie);
-    isCheckboxChecked
-      ? savedDataLocalStorage(shortFilm)
-      : savedDataLocalStorage(movie);
   };
 
   const saerchMovies = () => {
@@ -70,27 +54,6 @@ function SavedMovies({arrSavedMovies, setArrSavedMovies}) {
       filterMovies(arrSavedMovies, e.target.checked);
     }
   };
-
-  useEffect(() => {
-    if (
-      JSON.parse(localStorage.getItem('lastSearchSavedMovies')) !== null &&
-      localStorage.getItem('LoggedIn')
-    ) {
-      setFormValue(
-        JSON.parse(localStorage.getItem('lastSearchSavedMovies')).formValue
-      );
-      setIsCheckboxChecked(
-        JSON.parse(localStorage.getItem('lastSearchSavedMovies'))
-          .isCheckboxChecked
-      );
-      setFilteredMovies(
-        JSON.parse(localStorage.getItem('lastSearchSavedMovies')).movie
-      );
-      setIsValidForm(
-        JSON.parse(localStorage.getItem('lastSearchSavedMovies')).isValidForm
-      );
-    }
-  }, []);
 
   const handleChange = (e) => {
     if (e.target.value.length > 0) {

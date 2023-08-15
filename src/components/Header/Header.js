@@ -1,4 +1,4 @@
-import {Link, useNavigate, useLocation} from 'react-router-dom';
+import {useNavigate, useLocation} from 'react-router-dom';
 import {useEffect, useState} from 'react';
 import Navigation from '../Navigation/Navigation';
 import {itemNavigation} from '../../utils/constans';
@@ -37,12 +37,18 @@ function Header({loggedIn}) {
           <></>
         ) : (
           <>
-            <button className='header__button-signup' to='/signup'>
+            <button
+              className='header__button-signup'
+              onClick={() => navigate('/signup')}
+            >
               Регистрация
             </button>
-            <Link className='header__button-signin' to='/signin'>
+            <button
+              className='header__button-signin'
+              onClick={() => navigate('/signin')}
+            >
               Войти
-            </Link>
+            </button>
           </>
         )}
 

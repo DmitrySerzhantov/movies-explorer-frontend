@@ -38,6 +38,7 @@
   display: flex;
   margin-left: auto;
   padding: 0;
+  cursor: pointer;
 }
 
 .header__button-signup:hover {
@@ -57,6 +58,8 @@
   font-size: 12px;
   font-weight: 500;
   line-height: 16px;
+  border: none;
+  cursor: pointer;
 }
 
 .header__button-signin:hover {
