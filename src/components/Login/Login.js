@@ -1,16 +1,58 @@
-import {useState} from 'react';
-import {Link, useNavigate} from 'react-router-dom';
-function Login() {
+import {useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {regularValidetEmail} from '../../utils/constans';
+function Login({onLogin, messageErorr}) {
   const navigate = useNavigate();
   const [emailErrMessage, setEmailErrMessage] = useState('');
   const [passwordErrMessage, setPasswordErrMessage] = useState('');
-  const [validEmal, setValidEmal] = useState(false);
-  const [validPassword, setvalidPassword] = useState(false);
+  const [emailValid, setEmailValid] = useState(null);
+  const [passwordValid, setpasswordValid] = useState(false);
+  const [validForm, setValidForm] = useState(false);
+  const [messageErr, setMessageErr] = useState('');
+
+  const [formValue, setFormValue] = useState({
+    username: '',
+    email: '',
+    password: '',
+  });
+
+  const handleChange = (e) => {
+    const {name, value, validationMessage, id} = e.target;
+    if (id === 'email') {
+      !regularValidetEmail.test(value)
+        ? setEmailValid(false)
+        : setEmailValid(true);
+    } else if (id === 'password') {
+      setpasswordValid(e.target.validity.valid);
+      setPasswordErrMessage(validationMessage);
+    }
+
+    setFormValue({
+      ...formValue,
+      [name]: value,
+    });
+  };
+
+  useEffect(() => {
+    !emailValid && emailValid !== null
+      ? setEmailErrMessage('Введите корректный email')
+      : setEmailErrMessage('');
+    setValidForm(emailValid && passwordValid);
+    setTimeout(() => {
+      setMessageErr(messageErorr);
+    }, 1000);
+  }, [emailValid, passwordValid, messageErorr, onLogin, messageErr]);
+
+  const handleSubmit = (e) => {
+    onLogin(formValue.password, formValue.email);
+    e.preventDefault();
+  };
+
   return (
     <section className='register'>
       <button className='register__button-home' onClick={() => navigate('/')} />
       <h1 className='register__title'>Рады видеть!</h1>
-      <form className='register__form'>
+      <form className='register__form' onSubmit={handleSubmit}>
         <span className='register__form-subtitle'>E-mail</span>
         <input
           required
@@ -22,10 +64,7 @@ function Login() {
           maxLength='40'
           className='register__input'
           placeholder='Ваш email'
-          onChange={(e) => {
-            setEmailErrMessage(e.target.validationMessage);
-            setValidEmal(e.target.validity.valid);
-          }}
+          onChange={handleChange}
         />
         <span className='register__input-error'>{emailErrMessage}</span>
         <span className='register__form-subtitle'>Пароль</span>
@@ -39,29 +78,30 @@ function Login() {
           maxLength='40'
           autoComplete='new-password'
           placeholder='Ваш пароль'
-          onChange={(e) => {
-            setPasswordErrMessage(e.target.validationMessage);
-            setvalidPassword(e.target.validity.valid);
-          }}
+          onChange={handleChange}
         />
         <span htmlFor='password' className='register__input-error'>
           {passwordErrMessage}
         </span>
+        <button
+          className={
+            messageErr
+              ? 'register__button login-button register__messageErorr'
+              : 'register__button login-button'
+          }
+          disabled={validForm ? false : true}
+        >
+          {messageErr ? messageErr : 'Войти'}
+        </button>
       </form>
-      <button
-        className='register__button'
-        disabled={validEmal && validPassword ? false : true}
-        onChange={(e) => console.log(e)}
-        onClick={() => navigate('/movies')}
-        
-      >
-        Войти
-      </button>
       <p className='register__footer'>
         Ещё не зарегистрированы?{' '}
-        <Link className='register__footer-button' to='/signup'>
+        <button
+          className='register__footer-button'
+          onClick={() => navigate('/signup')}
+        >
           Регистрация
-        </Link>
+        </button>
       </p>
     </section>
   );
