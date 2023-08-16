@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {regularValidetEmail} from '../../utils/constans';
 
-function Register({handleRegister}) {
+function Register({handleRegister, messageErorr}) {
   const navigate = useNavigate();
   const [nameErrMessage, setNameErrMessage] = useState('');
   const [emailErrMessage, setEmailErrMessage] = useState('');
@@ -11,6 +11,7 @@ function Register({handleRegister}) {
   const [emailValid, setEmailValid] = useState(null);
   const [passwordValid, setpasswordValid] = useState(false);
   const [validForm, setValidForm] = useState(false);
+  const [messageErr, setMessageErr] = useState(messageErorr);
 
   const [formValue, setFormValue] = useState({
     name: '',
@@ -43,15 +44,17 @@ function Register({handleRegister}) {
   };
 
   useEffect(() => {
+    setTimeout(() => {
+      setMessageErr(messageErorr);
+    }, 1000);
     !emailValid && emailValid !== null
       ? setEmailErrMessage('Введите корректный email')
       : setEmailErrMessage('');
     setValidForm(nameValid && emailValid && passwordValid);
-  }, [nameValid, emailValid, passwordValid]);
+  }, [nameValid, emailValid, passwordValid, messageErorr]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const {name, password, email} = formValue;
     handleRegister(name, password, email);
   };
@@ -107,10 +110,14 @@ function Register({handleRegister}) {
         <span className='register__input-error'>{passwordErrMessage}</span>
         <button
           type='submit'
-          className='register__button'
+          className={
+            messageErr
+              ? 'register__button  register__messageErorr'
+              : 'register__button '
+          }
           disabled={validForm ? false : true}
         >
-          Зарегистрироваться
+          {messageErr ? messageErr : 'Зарегистрироваться'}
         </button>
       </form>
       <p className='register__footer'>

@@ -9,8 +9,8 @@ function MoviesCardList({
   setArrSavedMovies,
 }) {
   let location = useLocation();
-  const [numberOfCards, setNumberOfCards] = useState(null);
   const [widthWindow, setWidthWindow] = useState(null);
+  const [numberOfCards, setNumberOfCards] = useState(null);
 
   function handleClickButton() {
     if (widthWindow > 768) {
@@ -28,7 +28,7 @@ function MoviesCardList({
     } else if (widthWindow <= 550) {
       return setNumberOfCards(5);
     }
-  }, [widthWindow]);
+  }, [widthWindow, foundMovies]);
 
   useEffect(() => {
     setWidthWindow(window.outerWidth);

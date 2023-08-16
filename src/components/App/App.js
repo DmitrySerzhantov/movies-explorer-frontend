@@ -11,7 +11,7 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import {checkToken, getMovies, login, register} from '../../utils/MainApi';
 import {CurrentUserContext} from '../../contexts/CurrentUserContext';
-import {useCallback, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import ProtectedRouteRegister from '../ProtectedRouteRegister/ProtectedRouteRegister';
 
@@ -20,6 +20,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [foundMovies, setFoundMovies] = useState([]);
   const [arrSavedMovies, setArrSavedMovies] = useState();
+  const [messageErorr, setMessageErorr] = useState('');
   let location = useLocation();
   const navigate = useNavigate();
 
@@ -31,9 +32,11 @@ function App() {
     register(name, password, email)
       .then((res) => {
         handleLogin(password, email);
+        localStorage.setItem('LoggedIn', true);
         navigate('/movies');
       })
       .catch((err) => {
+        setMessageErorr(err);
         console.log(err);
       });
   }
@@ -61,6 +64,7 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+        setMessageErorr(err);
       });
   }
 
@@ -77,6 +81,9 @@ function App() {
         }
       });
   };
+  useEffect(() => {
+    setTimeout(() => setMessageErorr(''), 2500);
+  }, [messageErorr]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -91,6 +98,7 @@ function App() {
                   tokenCheck={tokenCheck}
                   loggedIn={loggedIn}
                   element={Login}
+                  messageErorr={messageErorr}
                   onLogin={handleLogin}
                 />
               }
@@ -100,6 +108,7 @@ function App() {
               path='/signup'
               element={
                 <ProtectedRouteRegister
+                  messageErorr={messageErorr}
                   tokenCheck={tokenCheck}
                   loggedIn={loggedIn}
                   element={Register}

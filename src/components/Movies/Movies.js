@@ -45,7 +45,6 @@ function Movies({
     if (lastSearch !== null) {
       filterMovies(
         lastSearch.movie,
-
         lastSearch.isCheckboxChecked,
         lastSearch.formValue,
         lastSearch.isValidForm
@@ -74,11 +73,11 @@ function Movies({
 
   const handleFilterCheckbox = (e) => {
     setIsCheckboxChecked(e.target.checked);
-    e.target.checked
-      ? handleSearchForm(lastSearch.shortFilm)
-      : handleSearchForm(lastSearch.movie);
 
-    if (lastSearch.movie.length > 0) {
+    if (lastSearch !== null) {
+      e.target.checked
+        ? handleSearchForm(lastSearch.shortFilm)
+        : handleSearchForm(lastSearch.movie);
       isCheckboxChecked
         ? setFilteredMovies(lastSearch.movie)
         : setFilteredMovies(lastSearch.shortFilm);

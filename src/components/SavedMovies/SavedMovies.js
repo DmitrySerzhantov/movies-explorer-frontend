@@ -1,15 +1,23 @@
 import SearchForm from '../SearchForm/SearchForm';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import Preloader from '../Preloader/Preloader';
 
-function SavedMovies({arrSavedMovies, setArrSavedMovies}) {
+function SavedMovies({arrSavedMovies, setArrSavedMovies, getSavedMovies}) {
   const [formValue, setFormValue] = useState('');
   const [isValidForm, setIsValidForm] = useState(null);
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
   const [messageErrForm, setMessageErrForm] = useState('');
   const [filteredMovies, setFilteredMovies] = useState(arrSavedMovies);
+
+  useEffect(() => {
+    setFilteredMovies(arrSavedMovies);
+  }, [arrSavedMovies]);
+
+  useEffect(() => {
+    getSavedMovies();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSearchForm = (movie) => {
     if (movie.length === 0) {

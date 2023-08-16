@@ -70,6 +70,7 @@
   flex-shrink: 0;
 }
 
+
 .register__button {
   padding: 0;
   cursor: pointer;
@@ -111,6 +112,10 @@
 .register__button:disabled {
   color: #c2c2c2;
   background: #f8f8f8;
+}
+.register__messageErorr {
+  color: #ff3055;
+  font-size: 20px;
 }
 @media (max-width: 1024px) {
   .register {

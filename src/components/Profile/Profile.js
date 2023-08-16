@@ -10,58 +10,54 @@ function Profile({setFoundMovies}) {
   const [editProfile, setEditProfile] = useState(true);
   const [emailErrMessage, setEmailErrMessage] = useState(true);
   const [nameErrMessage, setNameErrMessage] = useState(true);
-  const [nameValid, setNameValid] = useState(false);
-  const [emailValid, setEmailValid] = useState(null);
   const [validForm, setValidForm] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('');
   const [formValue, setFormValue] = useState({});
   const navigate = useNavigate();
 
   function handleChange(e) {
-    const {name, value, validationMessage, id} = e.target;
+    const {name, value} = e.target;
+
+    formValidation(e);
+    setFormValue({
+      ...formValue,
+      [name]: value,
+    });
+  }
+
+  const formValidation = (e) => {
+    const {validationMessage, id} = e.target;
+    const valueТotMatch =
+      e.target.form.name.value !== currentUser.name ||
+      currentUser.email !== e.target.form.email.value;
     if (id === 'name') {
       e.target.validity.patternMismatch
         ? setNameErrMessage(
             'Допустимы только: латинские или кириллические буквы, пробел и тире .'
           )
         : setNameErrMessage(validationMessage);
-      setNameValid(e.target.validity.valid);
-    } else if (id === 'email') {
-      !regularValidetEmail.test(value)
-        ? setEmailValid(false)
-        : setEmailValid(true);
+      e.target.validity.valid &&
+      regularValidetEmail.test(e.target.form.email.value)
+        ? setValidForm(valueТotMatch)
+        : setValidForm(false);
     }
+    if (id === 'email') {
+      regularValidetEmail.test(e.target.value)
+        ? setEmailErrMessage('')
+        : setEmailErrMessage('Введите корректный email');
+      regularValidetEmail.test(e.target.value) &&
+      e.target.form.name.validity.valid
+        ? setValidForm(valueТotMatch)
+        : setValidForm(false);
+    }
+  };
 
-    setFormValue({
-      ...formValue,
-      [name]: value,
-    });
-  }
   useEffect(() => {
     setFormValue({
       name: currentUser.name,
       email: currentUser.email,
     });
   }, [currentUser.email, currentUser.name]);
-
-  useEffect(() => {
-    !emailValid && emailValid !== null
-      ? setEmailErrMessage('Введите корректный email')
-      : setEmailErrMessage('');
-    (formValue.name !== currentUser.name ||
-      formValue.email !== currentUser.email) &&
-    emailValid &&
-    nameValid
-      ? setValidForm(true)
-      : setValidForm(false);
-  }, [
-    nameValid,
-    emailValid,
-    formValue.name,
-    currentUser.email,
-    currentUser.name,
-    formValue.email,
-  ]);
 
   function handleSubmit(e) {
     e.preventDefault();
