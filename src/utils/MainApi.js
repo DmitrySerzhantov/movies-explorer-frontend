@@ -1,4 +1,4 @@
-export const BASE_URL = 'api.serzhantov.diplom.nomoredomains.xyz';
+export const BASE_URL = 'https://api.serzhantov.diplom.nomoredomains.xyz';
 function getResponseData(res) {
   return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
 }
